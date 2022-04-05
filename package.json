@@ -1,0 +1,21 @@
+{
+  "name": "layeredapps.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dashboard": {
+    "modules": []
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@layeredapps/dashboard": "@layeredapps/dashboard",
+    "js-beautify": "^1.13.0",
+    "remarkable": "^2.0.1",
+    "server-html": "^9.0.0",
+    "uglify-js": "^3.11.0"
+  }
+}
