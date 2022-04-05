@@ -201,8 +201,8 @@ module.exports = (rootPath, moduleInfo, documentationPath, api, urlPath) => {
     node: 'text',
     text: fs.readFileSync(jsFilePath.replace('.js', '.test.js')).toString()
   }]
-  doc.getElementById('github_source').attr.href = `https://github.com/layeredapps/${moduleInfo.moduleName}/tree/master/src/www${urlPath}.js`
-  doc.getElementById('github_tests').attr.href = `https://github.com/layeredapps/${moduleInfo.moduleName}/tree/master/src/www${urlPath}.test.js`
+  doc.getElementById('github_source').attr.href = `https://github.com/layeredapps/${moduleInfo.moduleName}/tree/main/src/www${urlPath}.js`
+  doc.getElementById('github_tests').attr.href = `https://github.com/layeredapps/${moduleInfo.moduleName}/tree/main/src/www${urlPath}.test.js`
   const filename = filePath.split('/').pop().replace('.js', '.html')
   createFolderSync(newFilePath, process.env.DOCUMENTATION_PATH)
   const html = beautify(doc.toString(), { indent_size: 2, space_in_empty_paren: true })
