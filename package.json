@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@layeredapps/dashboard": "@layeredapps/dashboard",
+    "@layeredapps/dashboard": "latest",
     "js-beautify": "^1.13.0",
     "remarkable": "^2.0.1",
     "server-html": "^9.0.0",
