@@ -18,26 +18,30 @@
       height: 100%;
       padding: 0;
       margin: 0;
-      background: linear-gradient(30deg, #117, #715, #ea3);
       font-family: Segoe UI, Roboto, Helvetica, Arial, sans-serif
+    }
+
+    .container { 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: auto;
+      min-height: 100%;
+      background: linear-gradient(30deg, #117, #715, #ea3)
     }
 
     .dashboard {
       min-width: 230px;
-      position: absolute;
-      top: 25%;
-      left: 25%;
       border-radius: 0.5rem;
-      width: 50%;
-      min-height: 50%;
-      max-height: 80%;
-      overflow: hidden;
-      border: 1px dotted rgba(255, 255, 255, 0.5);
-      box-shadow: 0 0 1rem rgba(0, 0, 0, 0.25);
+      width: 80%;
+      margin: 4rem 0;
       background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5))
     }
 
     .header {
+      background-color: rgba(0, 0, 0, 0.25);
+      border-radius: 0.5rem 0.5rem 0 0;
       height: 3rem;
       line-height: 3rem;
       color: inherit;
@@ -69,55 +73,29 @@
       line-height: 3rem
     }
 
-    .navigation {
-      display: flex;
-      width: 100%;
-      top: 3rem;
-      height: 2rem;
-      line-height: 2rem;
-      border-top: 1px dotted rgba(255, 255, 255, 0.5);
-      border-bottom: 1px dotted rgba(255, 255, 255, 0.5)
-    }
-
-    .navigation a {
-      text-decoration: none;
-      color: #FFF;
-      font-size: 0.8rem;
-      margin-left: 1rem;
-      line-height: 2rem
-    }
-
-    .navigation a:hover {
-      color: #FFF;
-      text-decoration: underline
-    }
-
     .content {
-      /* display: flex; */
-      height: 100%;
+      padding-bottom: 4rem;
       text-align: center
     }
 
     .content h1 {
-      /* position: absolute; */
-      /* z-index: 2; */
       color: rgba(255, 255, 255, 0.5);
-      font-size: 1.6rem;
+      font-size: 2rem;
       font-weight: 300;
-      /* text-align: right; */
-      /* bottom: 2rem; */
-      /* right: 2rem; */
       padding: 0.5rem;
-      margin: 0
+      margin: 2rem 4rem
     }
 
     .content h1 span {
       color: rgba(255, 255, 255, 0.75)
     }
 
-    .content img {
-      width: 100%;
-      opacity: 0.1
+    .content p {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1.2rem;
+      font-weight: 300;
+      padding: 0.5rem;
+      margin: 2rem 0 0 0
     }
 
     .content ul {
@@ -126,139 +104,169 @@
     }
 
     .content li {
-      font-size: 1.2rem;
-      line-height: 2rem;
-      color: #FFF;
+      font-size: 1.4rem;
+      line-height: 3rem;
+      color: rgba(255, 255, 255, 0.75);
       font-weight: 300;
-      list-style-type: none
+      list-style-type: none;
+      padding: 0 1rem;
+      margin: 1rem;
+      background-color: rgba(0, 0, 0, 0.25);
+      display: inline-block;
+      border-radius: 0.5rem
     }
 
-    .content li span { 
-
-      font-style: italic;
-      text-decoration: line-through;
-      opacity: 0.7;
+    .content p { 
+      margin: 1rem 0 0.5rem 0 
     }
 
-    @media (max-width: 1024px) {
-      .dashboard {
-        top: 10%;
-        left: 10%;
-        width: 80%;
-        height: 80%;
-        max-height: none
-      }
+    .content .button { 
+      display: inline-block;
+      background-color: transparent; 
+      border: 1px solid #EA3; 
+      color: #EA3; 
+      padding: 0 1rem; 
+      line-height: 2.4rem;
+      border-radius: 0.5rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      text-decoration: none
+    }
 
-      .content img {
-        width: auto;
-        height: 100%
-      }
+    .content .button:active,
+    .content .button:hover { 
+      border-color: #FFF;
+      color: #FFF
+    }
+
+    .content .button-spaced {
+      margin-right: 1rem
+    }
+
+    .content .button-imaged {
+      line-height: 3rem
+    }
+
+    .content .button-imaged .wrapper {
+       display: flex
+    }
+
+    .content .button-imaged .icon {
+      display: block;
+      background: transparent url(/public/004-cube-with-layers-yellow.png) no-repeat;
+      background-size: auto 2rem;
+      height: 2rem;
+      width: 2.5rem;
+      margin: 0.5rem 0
+    }
+
+    .content .button-imaged:hover .icon {
+      background: transparent url(/public/004-cube-with-layers.png) no-repeat;
+      background-size: auto 2rem;
+      height: 2rem;
+      width: 2.5rem;
+      margin: 0.5rem 0
+    }
+
+    .deploy { margin: 2rem 1rem 0 1rem }
+    .deploy h2 { font-weight: 300; color: #FFF; font-size: 1.2rem }
+    .deploy p { font-size: 0.9rem }
+    .deploy p a { color: #FFF }
+    .deploy pre {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      overflow-x: auto;
+      font-family: monospace;
+      color: rgba(255, 255, 255, 0.75);
+      text-align: left
+    }
+    .deploy .wrapper {
+      margin: 0 auto;
+      max-width: 40rem;
+      padding: 1rem;
+      background-color: rgba(255, 255, 255, 0.0675);
+      border-radius: 0.5rem
     }
 
     @media (max-width: 650px) {
-      .dashboard {
-        top: 2%;
-        left: 2%;
-        width: 96%;
-        height: 96%;
-        max-height: none
-      }
-
-      .header h2 {
-        font-size: 1rem;
-        text-indent: 0.5rem
-      }
-
-      .header .menu {
-        font-size: 1rem !important
-      }
-
-      .header .menu span {
-        display: none !important
-      }
-
-      .navigation a {
-        font-size: 0.75rem !important
-      }
-
-      .dashboard .navigation a {
-        display: none
-      }
-
-      .navigation a:first-of-type {
-        margin-left: 0.5em !important;
-        display: inline-block
-      }
-
-      .navigation a:last-of-type {
-        display: inline-block
-      }
-
-      .content h1 {
-        font-size: 2rem
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .navigation a {
-        font-size: 0.9rem
-      }
-      .content h1 { 
-        font-size: 3rem;
-        line-height: 4rem
-      }
-      .content li { 
-        line-height: 3rem;
-        font-size: 2rem
-      }
-    }
-
-    @media (min-width: 1440px) {
-      .navigation a {
-        font-size: 1rem
-      }
-    }
-
-    @media (min-width: 1920px) {
-      .dashboard {
-        width: 80%;
-        height: 80%;
-        top: 10%;
-        left: 10%;
-        border-width: 2px
-      }
-
-      .navigation {
-        border-top-width: 2px;
-        border-bottom-width: 2px
-      }
+      .dashboard { width: 96%; margin: 1rem 0 }
+      .dashboard h1 { margin: 1rem }
     }
   </style>
 </head>
 <body>
-  <div class="dashboard">
-    <section class="header">
-      <div class="menus">
-        <div class="menu"><img src="/public/account.svg"></div>
-        <div class="menu"><img src="/public/administrator.svg"></div>
-      </div>
-    </section>
-    <section class="navigation">
-      <nav>
-        <a href="/dashboard">Documentation</a> <a href="https://github.com/layeredapps/dashboard">Source code</a>
-      </nav>
-    </section>
-    <section class="content">
-      <!-- <h1>Dashboard provides boilerplate for <span>web apps</span></h1> -->
-      <h1>Build <span>web apps</span> with none of the beaurocracy...</h1>
-      <ul>
-        <li><span class="no">Account management</span> &#10003;</li>
-        <li><span class="no">User administration</span> &#10003;</li>
-        <li><span class="no">Organizations</span> &#10003;</li>
-        <li><span class="no">Stripe Subscription payments</span> &#10003;</li>
-        <li><span class="no">Stripe Connect payouts</span> &#10003;</li>
-      </ul>
-    </section>
+  <div class="container">
+    <div class="dashboard">
+      <section class="header">
+        <div class="menus">
+          <div class="menu"><img src="/public/account.svg"></div>
+          <div class="menu"><img src="/public/administrator.svg"></div>
+        </div>
+      </section>
+      <section class="content">
+        <h1><span>Dashboard</span> provides <span>web apps</span> an instant <span>UI and API</span> for user accounts, organizations and Stripe integrations</h1>
+        <ul>
+          <li>zero-code integration &#10003;</li>
+          <li>stack-agnostic &#10003;</li>
+          <li>horizontally-scalable &#10003;</li>
+          <li>self-hostable &#10003;</li>
+          <li>API-driven &#10003;</li>
+          <li>modular &#10003;</li>
+          <li>themeable &#10003;</li>
+          <li>responsive &#10003;</li>
+          <li>open-source &#10003;</li>
+        </ul>
+        <p>Deploy it alongside your application and skip the web app boilerplate.</p>
+        <a class="button button-spaced" href="/dashboard">Documentation</a>
+        <a class="button" href="https://github.com/layeredapps">Github</a>
+        <p>It's even easier with our managed hosting:</p>
+        <a class="button button-imaged" href="https://layeredapps.com">
+          <span class="wrapper">
+            <span class="icon"></span>
+            Layered Apps
+          </span>
+        </a>
+        <div class="deploy">
+          <h2>Deplyment instructions</h2>
+          <p>First set up NodeJS and your Dashboard server with any modules you want</p>
+          <div class="wrapper">
+            <pre><code>$ mkdir my-dashboard-server
+$ cd my-dashboard-server
+$ npm init -y
+$ npm install @layeredapps/dashboard
+$ npm install @layeredapps/organizations        # optional
+$ npm install @layeredapps/stripe-subscriptions # optional
+$ npm install @layeredapps/stripe-connect       # optional  
+$ echo "require('@layeredapps/dashboard').start(__dirname)" > main.js</code></pre>
+          </div>
+          <p>Add your configuration to your package.json</p>
+          <div class="wrapper">
+            <pre><code>"dashboard": {
+  "title": "My Dashboard Server",
+  "modules": [
+    "@layeredapps/stripe-subscriptions"
+  ]
+}</code></pre>
+          </div>
+          <p>Install the driver for your preferred database (read about <a href="/dashboard#storage-backends">storage backends</a> and <a href="/dashboard#storage-caching">caching</a>)</p>
+          <div class="wrapper">
+            <pre><code>$ npm install sqlite3      # perfect for dev/testing
+$ npm install pg pg-hstore # for postgresql
+$ npm install mysql2       # for mysql and mariadb
+$ npm install tedious      # for mssql server
+$ npm install ibm_db       # for db2</code></pre>
+          </div>
+          <p>Start your server (read about <a href="/dashboard-configuration">configuration variables</a>)</p>
+          <div class="wrapper">
+            <pre><code>$ export APPLICATION_SERVER=http://localhost:3000
+$ export APPLICATION_SERVER_TOKEN=secret
+$ node main.js</code></pre>
+          </div>
+          <p>Dashboard will start on port localhost:8000 and will serve its own content or proxy your application</p>
+        </div>
+      </section>
+    </div>
   </div>
 </body>
 </html>
