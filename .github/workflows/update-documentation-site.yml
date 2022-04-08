@@ -14,42 +14,11 @@ jobs:
         git clone https://github.com/layeredapps/layeredapps.github.io documentation
         cd documentation
         npm version patch
-    # - name: Deploy to Github Pages
-    #   uses: peaceiris/actions-gh-pages@v3
-    #   with: 
-    #     external_repository: "layeredapps/layeredapps.github.io"
-    #     personal_token: ${{ secrets.DEPLOY_TOKEN }}
-    #     publish_dir: documentation
-    #     publish_branch: main
-    #     keep_files: true
-    # - name: Pushes to Repository
-    #   uses: tech-thinker/push-to-repo@main
-    #   env:
-    #     API_TOKEN_GITHUB: ${{ secrets.DEPLOY_TOKEN }}
-    #   with:
-    #     user-name: "github-actions[bot]"
-    #     user-email: github-actions[bot]@users.noreply.github.com
-    #     source-directory: "documentation"
-    #     destination-github-username: "layeredapps"
-    #     destination-repository-name: "layeredapps.github.io"
-    #     target-branch: main
-    # - name: Push changes
-    #   uses: ad-m/github-push-action@master
-    #   with:
-    #     github_token: ${{ secrets.DEPLOY_TOKEN }}
-    #     branch: main
-    #     directory: documentation
-    #     repository: layeredapps/layeredapps.github.io
-
-    - name: Pushes test file
-      uses: dmnemec/copy_file_to_another_repo_action@main
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.DEPLOY_TOKEN }}
+    - name: Publish documentation assets
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        source_file: 'documentation'
-        destination_repo: 'layeredapps/layeredapps.github.io'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
-        user_name: 'github-actions[bot]'
-        commit_message: 'Trigger regeneration'
-
-
+        external_repository: "layeredapps/layeredapps.github.io"
+        personal_token: ${{ secrets.DEPLOY_TOKEN }}
+        publish_dir: documentation
+        publish_branch: main
+        keep_files: true
