@@ -102,9 +102,6 @@ async function generate (rootPath, moduleName) {
   await readmeConverter(rootPath, moduleInfo, documentationPath)
   // the ui structure
   const ui = await scanUIStructure(rootPath, moduleName, urlStem)
-  if (moduleName === 'example-web-app') {
-    console.log(ui)
-  }
   if (ui) {
     for (const url in ui.urls) {
       if (url.startsWith('/api/') || url.startsWith('/webhooks/')) {

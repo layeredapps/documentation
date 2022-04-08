@@ -25,6 +25,9 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap) => {
   const user = []
   const administrator = []
   for (const key in sitemap.urls) {
+    if (key === '/') {
+      continue
+    }
     if (key.indexOf('/api/') > -1 || key.indexOf('/webhooks/') > -1) {
       continue
     }

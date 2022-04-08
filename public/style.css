@@ -19,22 +19,23 @@ h2 a,
 h3 a,
 p a { font-size: inherit }
 
-.section-container { padding: 1rem }
+.section-container { padding: 1rem; background-color: #FFF }
 .full { max-width: 100% }
 p.note { font-size: 1.2rem; max-width: 36rem; line-height: 1.6rem; margin-top: 0.5rem }
 .super-navbar { margin: 0; padding: 1rem 1rem 0 1rem }
-.super-navbar a { font-size: 1rem; color: #117; font-weight: normal !important }
+.super-navbar a { font-size: 1rem; color: #117; font-weight: normal }
 
 
-header {  background: linear-gradient(30deg, #117, #715, #ea3); color: #FFF; width: 100% }
+header { background: linear-gradient(30deg, #117, #715, #ea3); color: #FFF; width: 100% }
 header h1 { padding: 1rem 1rem 0.5rem 1rem; margin: 0 }
 header p { display: inline-block; margin: 0; padding: 0 0 1rem 1rem; font-size: 1.4rem; color: rgba(255, 255, 255, 0.5) }
 header a { font-size: 1.4rem; color: rgba(255, 255, 255, 0.75); font-size: 1.4rem }
 
 .navigation { margin: 0 }
-.navigation .menu { margin: 0; padding: 0 1rem }
-.navigation .menu li { display: inline-block !important; margin: 0 1rem 0 0 }
+.navigation .menu { margin: 0 0 1rem 0; padding: 0 1rem }
+.navigation .menu li { display: inline-block; margin: 0 1rem 0 0 }
 .navigation .menu h2 { font-size: 1rem; margin: 0; padding: 0.5rem; color: rgba(255, 255, 255, 0.5); text-transform: uppercase; font-weight: normal }
+.navigation .submenu { margin: 0; padding: 0 0 0 0.5rem }
 .navigation .submenu li { margin: 0 1rem 0 0; padding: 0.5rem 1rem; display: inline-block }
 .navigation .submenu li.active { background-color: #FFF; border-radius: 0.5rem 0.5rem 0 0; color: rgba(0, 0, 0, 0.75) }
 .navigation .submenu li.active a { color: #117 }
@@ -58,7 +59,7 @@ header a { font-size: 1.4rem; color: rgba(255, 255, 255, 0.75); font-size: 1.4re
 .content ul { margin-left: 0; padding-left: 0 }
 .content ol { margin-left: 0; padding-left: 1rem }
 .content ol li { list-style-type: number }
-.content pre { display: inline-block; line-height: 1rem; font-size: 0.75rem; background-color: #EEE; border-radius: 0.5rem; overflow: auto; margin: 0 0 2rem 0; padding: 0 4rem 0 0 }
+.content pre { display: inline-block; line-height: 1rem; font-size: 0.75rem; background-color: #EEE; border-radius: 0.5rem; overflow: auto; margin: 0 0 2rem 0; padding: 0; max-width: 100% }
 .content pre code { display: block; margin: 0; padding: 0.5rem }
 .content td pre { background-color: transparent; border: none}
 .content td { padding-right: 4rem }
@@ -78,10 +79,6 @@ header a { font-size: 1.4rem; color: rgba(255, 255, 255, 0.75); font-size: 1.4re
 .screenshots a.screenshot-link { padding: 0.5rem }
 .screenshots a.route-link,
 .screenshots span.description { display: inline-block; margin: 0.5rem }
-
-@media (min-width: 800px) {
-    .screenshots li { max-width: 30rem; display: inline-block; margin-right: 1rem }
-}
 
 div.ui-container { margin-top: 1rem }
 div.api-via { margin-bottom: 1rem; margin: 0 0 2rem 0; color: #666; font-style: italic; font-size: 0.9rem }
@@ -142,3 +139,14 @@ pre,
 .hljs-formula { background: #073642 }
 .hljs-emphasis { font-style: italic }
 .hljs-strong { font-weight: bold }
+
+@media (min-width: 800px) {
+  .screenshots li { max-width: 30rem; display: inline-block; margin-right: 1rem }
+}
+
+@media (max-width: 800px) {
+  .navigation .menu li { display: block; margin: 0 0 0.5rem 0 }
+  .navigation .submenu li { margin: 0 }
+  .api-columns { display: block }
+}
+  

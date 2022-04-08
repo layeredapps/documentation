@@ -5,193 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
   <style>
-    html {
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      margin: 0
-    }
-
-    body {
-      min-width: 250px;
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-      font-family: Segoe UI, Roboto, Helvetica, Arial, sans-serif
-    }
-
-    .container { 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: auto;
-      min-height: 100%;
-      background: linear-gradient(30deg, #117, #715, #ea3)
-    }
-
-    .dashboard {
-      min-width: 230px;
-      border-radius: 0.5rem;
-      width: 80%;
-      margin: 4rem 0;
-      background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5))
-    }
-
-    .header {
-      background-color: rgba(0, 0, 0, 0.25);
-      border-radius: 0.5rem 0.5rem 0 0;
-      height: 3rem;
-      line-height: 3rem;
-      color: inherit;
-      width: 100%
-    }
-    
-    .header img {
-      width: 1.5rem;
-      height: 1.5rem;
-      margin-top: 0.75rem;
-      display: block;
-      float: right;
-      margin-left: 0.5rem;
-      opacity: 0.25
-    }
-
-    .header .menu {
-      height: 3rem;
-      float: right;
-      color: rgba(255, 255, 255, 0.75);
-      line-height: 3rem;
-      font-size: 0.9rem;
-      margin-right: 1rem
-    }
-
-    .header .menu span {
-      display: inline-block;
-      height: 3rem;
-      line-height: 3rem
-    }
-
-    .content {
-      padding-bottom: 4rem;
-      text-align: center
-    }
-
-    .content h1 {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 2rem;
-      font-weight: 300;
-      padding: 0.5rem;
-      margin: 2rem 4rem
-    }
-
-    .content h1 span {
-      color: rgba(255, 255, 255, 0.75)
-    }
-
-    .content p {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 1.2rem;
-      font-weight: 300;
-      padding: 0.5rem;
-      margin: 2rem 0 0 0
-    }
-
-    .content ul {
-      margin: 0;
-      padding: 0
-    }
-
-    .content li {
-      font-size: 1.4rem;
-      line-height: 3rem;
-      color: rgba(255, 255, 255, 0.75);
-      font-weight: 300;
-      list-style-type: none;
-      padding: 0 1rem;
-      margin: 1rem;
-      background-color: rgba(0, 0, 0, 0.25);
-      display: inline-block;
-      border-radius: 0.5rem
-    }
-
-    .content p { 
-      margin: 1rem 0 0.5rem 0 
-    }
-
-    .content .button { 
-      display: inline-block;
-      background-color: transparent; 
-      border: 1px solid #EA3; 
-      color: #EA3; 
-      padding: 0 1rem; 
-      line-height: 2.4rem;
-      border-radius: 0.5rem;
-      font-size: 1.2rem;
-      cursor: pointer;
-      text-decoration: none
-    }
-
+    html { width: 100%; height: 100%; padding: 0; margin: 0 }
+    body { min-width: 250px; width: 100%; height: 100%; padding: 0; margin: 0; font-family: Segoe UI, Roboto, Helvetica, Arial, sans-serif }
+    .container {  display: flex; align-items: center; justify-content: center; width: 100%; height: auto; min-height: 100%; background: linear-gradient(30deg, #117, #715, #ea3) }
+    .dashboard { min-width: 230px; border-radius: 0.5rem; width: 80%; margin: 4rem 0; background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5)) }
+    .header { background-color: rgba(0, 0, 0, 0.25); border-radius: 0.5rem 0.5rem 0 0; height: 3rem; line-height: 3rem; color: inherit; width: 100%; display: grid; grid-template-columns: auto 1fr }
+    .header h1 {  margin: 0; background: url(/public/004-cube-with-layers.png) no-repeat; background-position: 0.5rem 0.5rem; background-size: auto 2rem; font-size: 1.6rem; text-indent: 3rem; line-height: 3.5rem; color: #FFF; opacity: 0.75 }
+    .header img { width: 1.5rem; height: 1.5rem; margin-top: 0.75rem; display: block; float: right; margin-left: 0.5rem; opacity: 0.25 }
+    .header .menu { height: 3rem; float: right; color: rgba(255, 255, 255, 0.75); line-height: 3rem; font-size: 0.9rem; margin-right: 1rem }
+    .header .menu span { display: inline-block; height: 3rem; line-height: 3rem }
+    .content { padding-bottom: 4rem; text-align: center }
+    .content h1 { color: rgba(255, 255, 255, 0.5); font-size: 2rem; font-weight: 300; padding: 0.5rem; margin: 2rem 4rem }
+    .content h1 span { color: rgba(255, 255, 255, 0.75) }
+    .content p { color: rgba(255, 255, 255, 0.5); font-size: 1.2rem; font-weight: 300; padding: 0.5rem; margin: 2rem 0 0 0 }
+    .content ul { margin: 0; padding: 0 }
+    .content li { font-size: 1.4rem; line-height: 3rem; color: rgba(255, 255, 255, 0.75); font-weight: 300; list-style-type: none; padding: 0 1rem; margin: 1rem; background-color: rgba(0, 0, 0, 0.25); display: inline-block; border-radius: 0.5rem }
+    .content p {  margin: 1rem 0 0.5rem 0  }
+    .content .button { display: inline-block; background-color: transparent; border: 1px solid #EA3; color: #EA3; padding: 0 1rem; line-height: 2.4rem; border-radius: 0.5rem; font-size: 1.2rem; cursor: pointer; text-decoration: none }
     .content .button:active,
-    .content .button:hover { 
-      border-color: #FFF;
-      color: #FFF
-    }
-
-    .content .button-spaced {
-      margin-right: 1rem
-    }
-
-    .content .button-imaged {
-      line-height: 3rem
-    }
-
-    .content .button-imaged .wrapper {
-       display: flex
-    }
-
-    .content .button-imaged .icon {
-      display: block;
-      background: transparent url(/public/004-cube-with-layers-yellow.png) no-repeat;
-      background-size: auto 2rem;
-      height: 2rem;
-      width: 2.5rem;
-      margin: 0.5rem 0
-    }
-
-    .content .button-imaged:hover .icon {
-      background: transparent url(/public/004-cube-with-layers.png) no-repeat;
-      background-size: auto 2rem;
-      height: 2rem;
-      width: 2.5rem;
-      margin: 0.5rem 0
-    }
-
+    .content .button:hover { border-color: #FFF; color: #FFF }
+    .content .button-spaced { margin-right: 1rem }
+    .content .button-imaged { line-height: 3rem }
+    .content .button-imaged .wrapper { display: flex }
+    .content .button-imaged .icon { display: block; background: transparent url(/public/004-cube-with-layers-yellow.png) no-repeat; background-size: auto 2rem; height: 2rem; width: 2.5rem; margin: 0.5rem 0 }
+    .content .button-imaged:hover .icon { background: transparent url(/public/004-cube-with-layers.png) no-repeat; background-size: auto 2rem; height: 2rem; width: 2.5rem; margin: 0.5rem 0 }
     .deploy { margin: 2rem 1rem 0 1rem }
     .deploy h2 { font-weight: 300; color: #FFF; font-size: 1.2rem }
     .deploy p { font-size: 0.9rem }
     .deploy p a { color: #FFF }
-    .deploy pre {
-      width: 100%;
-      padding: 0;
-      margin: 0;
-      overflow-x: auto;
-      font-family: monospace;
-      color: rgba(255, 255, 255, 0.75);
-      text-align: left
-    }
-    .deploy .wrapper {
-      margin: 0 auto;
-      max-width: 40rem;
-      padding: 1rem;
-      background-color: rgba(255, 255, 255, 0.0675);
-      border-radius: 0.5rem
-    }
-
+    .deploy pre { width: 100%; padding: 0; margin: 0; overflow-x: auto; font-family: monospace; color: rgba(255, 255, 255, 0.75); text-align: left }
+    .deploy .wrapper { margin: 0 auto; max-width: 40rem; padding: 1rem; background-color: rgba(255, 255, 255, 0.0675); border-radius: 0.5rem }
     @media (max-width: 650px) {
       .dashboard { width: 96%; margin: 1rem 0 }
-      .dashboard h1 { margin: 1rem }
+      .dashboard h1 { margin: 0 }
+      .content { padding-top: 1rem }
     }
   </style>
 </head>
@@ -199,13 +46,14 @@
   <div class="container">
     <div class="dashboard">
       <section class="header">
+        <h1>LayeredApps</h1>
         <div class="menus">
           <div class="menu"><img src="/public/account.svg"></div>
           <div class="menu"><img src="/public/administrator.svg"></div>
         </div>
       </section>
       <section class="content">
-        <h1><span>Dashboard</span> provides <span>web apps</span> an instant <span>UI and API</span> for user accounts, organizations and Stripe integrations</h1>
+        <h1><span>Dashboard</span> provides <span>web apps</span> an instant <span>UI and API</span> for user accounts, organizations and <span>Stripe integrations</span></h1>
         <ul>
           <li>zero-code integration &#10003;</li>
           <li>stack-agnostic &#10003;</li>
@@ -214,7 +62,7 @@
           <li>API-driven &#10003;</li>
           <li>modular &#10003;</li>
           <li>themeable &#10003;</li>
-          <li>responsive &#10003;</li>
+          <li>responsive &#10003;</li>  
           <li>open-source &#10003;</li>
         </ul>
         <p>Deploy it alongside your application and skip the web app boilerplate.</p>
@@ -243,7 +91,7 @@ $ echo "require('@layeredapps/dashboard').start(__dirname)" > main.js</code></pr
           <p>Add your configuration to your package.json</p>
           <div class="wrapper">
             <pre><code>"dashboard": {
-  "title": "My Dashboard Server",
+  "title": "My Web App",
   "modules": [
     "@layeredapps/stripe-subscriptions"
   ]
