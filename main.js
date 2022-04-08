@@ -29,9 +29,6 @@ async function start () {
   // module documentation
   const modules = await scanModuleConfiguration(dashboardServerPath)
   for (const moduleName of modules) {
-    if (moduleName === '@layeredapps/stripe-subscriptions') {
-      continue
-    }
     await generate(dashboardServerPath, moduleName)
   }
   // dashboard documentation
