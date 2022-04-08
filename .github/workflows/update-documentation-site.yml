@@ -33,14 +33,10 @@ jobs:
     #     destination-github-username: "layeredapps"
     #     destination-repository-name: "layeredapps.github.io"
     #     target-branch: main
-    - name: Pushes to Repository
-      uses: tech-thinker/push-to-repo@main
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.DEPLOY_TOKEN }}
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
-        user-name: "github-actions[bot]"
-        user-email: github-actions[bot]@users.noreply.github.com
-        source-directory: "documentation"
-        destination-github-username: "layeredapps"
-        destination-repository-name: "layeredapps.github.io"
-        target-branch: main
+        github_token: ${{ secrets.DEPLOY_TOKEN }}
+        branch: main
+        directory: documentation
+        repository: layeredapps.github.io
