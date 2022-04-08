@@ -101,11 +101,16 @@ async function generate (rootPath, moduleName) {
   const ui = await scanUIStructure(rootPath, moduleName, urlStem)
   if (ui) {
     for (const url in ui.urls) {
-      if (url.startsWith('/api/') || url.startsWith('/webhooks/')) {
+      if (url === '/' || url.startsWith('/api/') || url.startsWith('/webhooks/')) {
         continue
       }
       ui.urls[url].url = url
-      const urlPath = path.join(documentationPath, 'screenshots', url)
+      let urlPath
+      if (moduleName.startsWith('@')) {
+        urlPath = path.join(documentationPath, 'screenshots', url)
+      } else {
+        urlPath = path.join(documentationPath, 'screenshots/' + moduleName, url)
+      }
       if (fs.existsSync(urlPath)) {
         const files = fs.readdirSync(urlPath)
         const screenshots = []
@@ -125,7 +130,7 @@ async function generate (rootPath, moduleName) {
     }
     await createUIIndex(rootPath, moduleInfo, documentationPath, ui)
     for (const url in ui.urls) {
-      if (url.startsWith('/api/') || url.startsWith('/webhooks/')) {
+      if (url === '/' || url.startsWith('/api/') || url.startsWith('/webhooks/')) {
         continue
       }
       if (urlStem && url.indexOf(urlStem) === -1) {

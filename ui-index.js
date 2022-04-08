@@ -37,6 +37,9 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap) => {
     sitemap.urls[key].object = 'route'
     sitemap.urls[key].title = key.split('/').pop().split('-').join(' ')
     sitemap.urls[key].title = sitemap.urls[key].title.charAt(0).toUpperCase() + sitemap.urls[key].title.substring(1)
+    if (!moduleInfo.moduleName.startsWith('@')) {
+      sitemap.urls[key].url = '/' + moduleInfo.moduleName + sitemap.urls[key].url
+    }
     if (sitemap.urls[key].screenshots) {
       for (const file of sitemap.urls[key].screenshots) {
         if (file.indexOf('-submit-form-') > -1) {

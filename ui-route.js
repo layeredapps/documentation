@@ -33,7 +33,7 @@ module.exports = async (rootPath, moduleInfo, documentationPath, page) => {
     pageTitle = pageTitle.substring(0, pageTitle.lastIndexOf('.'))
     pageTitle = pageTitle.replace('${', '')
   }
-  const folderName = page.url.split('/').pop()
+  const folderName = page.url === '/' ? 'index' : page.url.split('/').pop()
   const administrator = page.url.indexOf('/administrator') > -1
   const navbar = fs.readFileSync(moduleInfo.navbarFile).toString().replace('class="ui"', 'class="active"')
   const merged = template.replace('<section id="navigation" class="navigation"></section>', `<section id="navigation" class="navigation">${navbar}</section>`)
@@ -80,6 +80,7 @@ module.exports = async (rootPath, moduleInfo, documentationPath, page) => {
   }
   let htmlPath = `${prependPath}${administrator ? 'administrator' : 'account'}${embeddedPath}`
   htmlPath = path.join(documentationPath, 'ui', htmlPath)
+  console.log(htmlPath, folderName)
   createFolderSync(htmlPath, documentationPath)
   const html = beautify(doc.toString(), { indent_size: 2, space_in_empty_paren: true })
   fs.writeFileSync(`${htmlPath}/${folderName}.html`, html)
