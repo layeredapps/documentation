@@ -33,10 +33,23 @@ jobs:
     #     destination-github-username: "layeredapps"
     #     destination-repository-name: "layeredapps.github.io"
     #     target-branch: main
-    - name: Push changes
-      uses: ad-m/github-push-action@master
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.DEPLOY_TOKEN }}
+    #     branch: main
+    #     directory: documentation
+    #     repository: layeredapps/layeredapps.github.io
+
+    - name: Pushes test file
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.DEPLOY_TOKEN }}
       with:
-        github_token: ${{ secrets.DEPLOY_TOKEN }}
-        branch: main
-        directory: documentation
-        repository: layeredapps.github.io
+        source_file: 'documentation'
+        destination_repo: 'layeredapps/layeredapps.github.io'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        user_name: 'github-actions[bot]'
+        commit_message: 'Trigger regeneration'
+
+
