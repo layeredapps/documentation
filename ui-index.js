@@ -15,12 +15,6 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap) => {
     node: 'text',
     text: `${moduleInfo.title} UI index`
   }]
-  if (sitemap.examples && sitemap.examples.length) {
-    HTML.renderList(doc, sitemap.examples, 'route-template', 'example-routes-list')
-  } else {
-    const container = doc.getElementById('example-container')
-    container.parentNode.removeChild(container)
-  }
   const example = []
   const guest = []
   const user = []
