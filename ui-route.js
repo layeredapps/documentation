@@ -29,28 +29,19 @@ module.exports = async (rootPath, moduleInfo, documentationPath, page) => {
   } else if (moduleInfo.moduleName === 'example-subscription-web-app') {
     prependPath = 'example-subscription-web-app/'
   }
-  let pageTitle = moduleInfo.title
-  if (pageTitle.indexOf('${') > -1) {
-    pageTitle = pageTitle.substring(0, pageTitle.lastIndexOf('.'))
-    pageTitle = pageTitle.replace('${', '')
-  }
   const folderName = page.url === '/' ? 'index' : page.url.split('/').pop()
   const administrator = page.url.indexOf('/administrator') > -1
   const account = page.url.indexOf('/account') > -1
   const navbar = fs.readFileSync(moduleInfo.navbarFile).toString().replace('class="ui"', 'class="active"')
   const merged = template.replace('<section id="navigation" class="navigation"></section>', `<section id="navigation" class="navigation">${navbar}</section>`)
   const doc = HTML.parse(merged)
-  doc.getElementsByTagName('h1')[0].child = [{
-    node: 'text',
-    text: moduleInfo.title + ' UI explorer'
-  }]
   doc.getElementById('title').child = [{
     node: 'text',
-    text: pageTitle
+    text: page.title
   }]
   doc.getElementsByTagName('title')[0].child = [{
     node: 'text',
-    text: `"${pageTitle}" documentation for ${moduleInfo.title}`
+    text: `"${page.title}" navigation flow in ${moduleInfo.title}`
   }]
   const screenshotData = []
   for (const screenshot of page.screenshots) {
