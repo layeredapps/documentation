@@ -21,6 +21,7 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap) => {
     const container = doc.getElementById('example-container')
     container.parentNode.removeChild(container)
   }
+  const example = []
   const guest = []
   const user = []
   const administrator = []
@@ -54,9 +55,10 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap) => {
     }
     if (key.startsWith('/account/')) {
       user.push(sitemap.urls[key])
-    } 
-    if (key.startsWith('/administrator/')) {
+    } else if (key.startsWith('/administrator/')) {
       administrator.push(sitemap.urls[key])
+    } else {
+      example.push(sitemap.urls[key])
     }
     if (sitemap.urls[key].authDescription) {
       guest.push(sitemap.urls[key])
@@ -80,6 +82,12 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap) => {
     const container = doc.getElementById('administrator-container')
     container.parentNode.removeChild(container)
   }
+  if (example && example.length) {
+    HTML.renderList(doc, example, 'route-template', 'example-routes-list')
+  } else {
+    const container = doc.getElementById('example-container')
+    container.parentNode.removeChild(container)
+  }
   HTML.applyImageSRI(doc)
   const html = beautify(doc.toString(), {
     indent_size: 2,
@@ -91,5 +99,5 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap) => {
   } else {
     uiFile = moduleInfo.moduleName + '-ui.html'
   }
-  fs.writeFileSync(`${documentationPath}/${uiFile}`, html)
+  fs.writeFileSync(`${documentationPath}/${uiFile}`, `<!doctype html>${html}`)
 }

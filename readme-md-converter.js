@@ -31,7 +31,7 @@ module.exports = (rootPath, moduleInfo, documentationPath) => {
   }
   const html = beautify(doc.toString(), { indent_size: 2, space_in_empty_paren: true })
   const filename = formatFileName(filePath)
-  fs.writeFileSync(`${documentationPath}/${filename}`, html)
+  fs.writeFileSync(`${documentationPath}/${filename}`, `<!doctype html>${html}`)
 }
 
 function formatFileName (filePath) {

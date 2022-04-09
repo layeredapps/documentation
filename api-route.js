@@ -206,7 +206,7 @@ module.exports = (rootPath, moduleInfo, documentationPath, api, urlPath) => {
   const filename = filePath.split('/').pop().replace('.js', '.html')
   createFolderSync(newFilePath, process.env.DOCUMENTATION_PATH)
   const html = beautify(doc.toString(), { indent_size: 2, space_in_empty_paren: true })
-  fs.writeFileSync(`${newFilePath}/${filename}`, html)
+  fs.writeFileSync(`${newFilePath}/${filename}`, `<!doctype html>${html}`)
 }
 
 function createFolderSync (path, documentationPath) {

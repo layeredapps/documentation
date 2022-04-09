@@ -83,7 +83,7 @@ module.exports = async (rootPath, moduleInfo, documentationPath, page) => {
   console.log(htmlPath, folderName)
   createFolderSync(htmlPath, documentationPath)
   const html = beautify(doc.toString(), { indent_size: 2, space_in_empty_paren: true })
-  fs.writeFileSync(`${htmlPath}/${folderName}.html`, html)
+  fs.writeFileSync(`${htmlPath}/${folderName}.html`, `<!doctype html>${html}`)
 }
 
 function createFolderSync (path, documentationPath) {

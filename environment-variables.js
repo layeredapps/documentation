@@ -47,5 +47,5 @@ module.exports = (rootPath, moduleInfo, documentationPath, keys) => {
   HTML.renderList(doc, data, 'variable-row-template', 'variables-table')
   const html = beautify(doc.toString(), { indent_size: 2, space_in_empty_paren: true })
   const configurationFile = moduleInfo.moduleName.split('/').pop() + '-configuration.html'
-  fs.writeFileSync(`${documentationPath}/${configurationFile}`, html)
+  fs.writeFileSync(`${documentationPath}/${configurationFile}`, `<!doctype html>${html}`)
 }

@@ -15,7 +15,6 @@ module.exports = async (rootPath, moduleInfo, documentationPath, api) => {
     node: 'text',
     text: `${moduleInfo.title} API index`
   }]
-  const exampleRoutes = []
   const userRoutes = []
   const administratorRoutes = []
   for (const url in api) {
@@ -49,14 +48,12 @@ module.exports = async (rootPath, moduleInfo, documentationPath, api) => {
     urlParameters.sort()
     postParameters.sort()
     let data
-    if (url.indexOf('/administrator/') > -1) {
+    if (url.indexOf('/api/administrator/') > -1) {
       data = administratorRoutes
-    } else if (url.indexOf('/account/') > -1) {
-      data = userRoutes
     } else {
-      data = exampleRoutes
-    }
-    const id = administratorRoutes.length + userRoutes.length + exampleRoutes.length
+      data = userRoutes
+    } 
+    const id = administratorRoutes.length + userRoutes.length
     data.push({
       object: 'route',
       id,
@@ -78,12 +75,7 @@ module.exports = async (rootPath, moduleInfo, documentationPath, api) => {
   } else {
     removeList.push('administrator-container')
   }
-  if (exampleRoutes.length) {
-    HTML.renderTable(doc, exampleRoutes, 'route-row-template', 'administrator-routes-table')
-  } else {
-    removeList.push('administrator-container')
-  }
-  const allRoutes = userRoutes.concat(administratorRoutes).concat(exampleRoutes)
+  const allRoutes = userRoutes.concat(administratorRoutes)
   for (const route of allRoutes) {
     if (route.urlParameters && route.urlParameters.length) {
       route.urlParameters.sort((a, b) => {
@@ -103,10 +95,11 @@ module.exports = async (rootPath, moduleInfo, documentationPath, api) => {
     }
   }
   for (const id of removeList) {
+    console.log(id)
     const element = doc.getElementById(id)
     element.parentNode.removeChild(element)
   }
   const html = beautify(doc.toString(), { indent_size: 2, space_in_empty_paren: true })
   const apiFile = moduleInfo.moduleName.split('/').pop() + '-api.html'
-  fs.writeFileSync(`${documentationPath}/${apiFile}`, html)
+  fs.writeFileSync(`${documentationPath}/${apiFile}`, `<!doctype html>${html}`)
 }
