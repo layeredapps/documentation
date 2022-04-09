@@ -15,6 +15,7 @@ module.exports = async (rootPath, moduleInfo, documentationPath, api) => {
     node: 'text',
     text: `${moduleInfo.title} API index`
   }]
+  const exampleRoutes = []
   const userRoutes = []
   const administratorRoutes = []
   for (const url in api) {
@@ -47,10 +48,18 @@ module.exports = async (rootPath, moduleInfo, documentationPath, api) => {
     }
     urlParameters.sort()
     postParameters.sort()
-    const data = url.indexOf('/administrator/') > -1 ? administratorRoutes : userRoutes
+    let data
+    if (url.indexOf('/administrator/') > -1) {
+      data = administratorRoutes
+    } else if (url.indexOf('/account/') > -1) {
+      data = userRoutes
+    } else {
+      data = exampleRoutes
+    }
+    const id = administratorRoutes.length + userRoutes.length + exampleRoutes.length
     data.push({
       object: 'route',
-      id: administratorRoutes.length + userRoutes.length,
+      id,
       verb: api[url].verb,
       nodejs,
       url,
@@ -69,7 +78,13 @@ module.exports = async (rootPath, moduleInfo, documentationPath, api) => {
   } else {
     removeList.push('administrator-container')
   }
-  for (const route of userRoutes.concat(administratorRoutes)) {
+  if (exampleRoutes.length) {
+    HTML.renderTable(doc, exampleRoutes, 'route-row-template', 'administrator-routes-table')
+  } else {
+    removeList.push('administrator-container')
+  }
+  const allRoutes = userRoutes.concat(administratorRoutes).concat(exampleRoutes)
+  for (const route of allRoutes) {
     if (route.urlParameters && route.urlParameters.length) {
       route.urlParameters.sort((a, b) => {
         return a.name < b.name ? -1 : 1

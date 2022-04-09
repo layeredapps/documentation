@@ -131,7 +131,7 @@ window.onload = function () {
       const settings = document.createElement('div')
       settings.appendChild(devices)
       // settings.appendChild(languages)
-      screenshots.parentNode.insertBefore(settings, screenshots.previousSibling)
+      screenshots.parentNode.parentNode.insertBefore(settings, screenshots.previousSibling)
     }
   }
 }
