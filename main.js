@@ -181,7 +181,7 @@ async function scanExamples (documentationPath, moduleName) {
     }
     example.push({
       object: 'route',
-      url: folder,
+      url: `/${prefix}/${folder}`,
       title: folder.charAt(0).toUpperCase() + folder.split('-').join(' ').substring(1),
       screenshots,
       src: screenshots[screenshots.length - 1],
