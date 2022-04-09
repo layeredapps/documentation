@@ -154,8 +154,7 @@ function setScreenshotLanguage (e) {
     for (var j = 0, len = images.length; j < len; j++) {
       const image = images[j]
       let filename = image.getAttribute('data-src')
-      filename = filename.substring(0, filename.lastIndexOf('-'))
-      filename = filename.substring(0, filename.lastIndexOf('-'))
+      filename = cutDeviceLanguage(filename)
       filename += '-' + device + '-' + language + '.png'
       image.src = filename
       image.style.display = 'block'
