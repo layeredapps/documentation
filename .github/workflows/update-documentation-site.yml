@@ -11,10 +11,9 @@ jobs:
       run: |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
-        mkdir documentation
+        mkdir -p documentation/.github/workflows
+        cp generate-documentation.yml documentation/.github/workflows
         cd documentation
-        mkdir -p .github/workflows
-        cp ../generate-documentation.yml .github/workflows
         echo `date` > timestamp
     - name: Publish documentation assets
       uses: peaceiris/actions-gh-pages@v3
