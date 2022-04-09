@@ -182,8 +182,7 @@ function setScreenshotDevice (e) {
     for (let j = 0, jLen = images.length; j < jLen; j++) {
       const image = images[j]
       let filename = image.getAttribute('data-src')
-      filename = filename.substring(0, filename.lastIndexOf('-'))
-      filename = filename.substring(0, filename.lastIndexOf('-'))
+      filename = cutDeviceLanguage(filename)
       filename += '-' + device + '-' + language + '.png'
       image.src = filename
       image.style.display = 'block'
@@ -194,6 +193,17 @@ function setScreenshotDevice (e) {
   }
   e.preventDefault()
   return false
+}
+
+function cutDeviceLanguage (filename) {
+  const deviceKeys = [ 'desktop', 'ipad', 'pixel', 'iphone' ]
+  for (const device of deviceKeys) {
+    const index = filename.indexOf(device)
+    if (index > -1) {
+      return filename.substring(0, index)
+    }
+  }
+  return filenmae
 }
 
 function setNoScreenshot (e) {
