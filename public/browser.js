@@ -155,7 +155,7 @@ function setScreenshotLanguage (e) {
       const image = images[j]
       let filename = image.getAttribute('data-src')
       filename = cutDeviceLanguage(filename)
-      filename += '-' + device + '-' + language + '.png'
+      filename += device + '-' + language + '.png'
       image.src = filename
       image.style.display = 'block'
       if (window.WAMediaBox.galleries && window.WAMediaBox.galleries._ && window.WAMediaBox.galleries._.mediaList) {
@@ -182,7 +182,7 @@ function setScreenshotDevice (e) {
       const image = images[j]
       let filename = image.getAttribute('data-src')
       filename = cutDeviceLanguage(filename)
-      filename += '-' + device + '-' + language + '.png'
+      filename += device + '-' + language + '.png'
       image.src = filename
       image.style.display = 'block'
       if (window.WAMediaBox.galleries && window.WAMediaBox.galleries._ && window.WAMediaBox.galleries._.mediaList) {
