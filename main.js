@@ -128,7 +128,8 @@ async function generate (rootPath, moduleName) {
         ui.urls[url].screenshots = screenshots
       }
     }
-    await createUIIndex(rootPath, moduleInfo, documentationPath, ui)
+    const example = await scanExamples(documentationPath, moduleName)
+    await createUIIndex(rootPath, moduleInfo, documentationPath, ui, example)
     for (const url in ui.urls) {
       if (url === '/' || url.startsWith('/api/') || url.startsWith('/webhooks/')) {
         continue
@@ -137,6 +138,11 @@ async function generate (rootPath, moduleName) {
         continue
       }
       await createUIRoute(rootPath, moduleInfo, documentationPath, ui.urls[url])
+    }
+    if (example && example.length) {
+      for (const route of example) {
+        await createUIRoute(rootPath, moduleInfo, documentationPath, route)
+      }
     }
   }
   // the api documentation
@@ -152,6 +158,36 @@ async function generate (rootPath, moduleName) {
   if (env) {
     await environmentVariables(rootPath, moduleInfo, documentationPath, env)
   }
+}
+
+async function scanExamples (documentationPath, moduleName) {
+  if (moduleName.startsWith('@')) {
+    return
+  }
+  const example = []
+  const folderPath = path.join(documentationPath, 'screenshots', moduleName)
+  const contents = fs.readdirSync(folderPath)
+  for (const folder of contents) {
+    if (folder === 'account' || folder === 'administrator') {
+      continue
+    }
+    const files = fs.readdirSync(path.join(folderPath, folder))
+    const screenshots = []
+    const prefix = `/${moduleName}`
+    for (const file of files) {
+      if (file.endsWith('.png')) {
+        screenshots.push(`/screenshots${prefix}/${folder}/${file}`)
+      }
+    }
+    example.push({
+      object: 'route',
+      url: folder,
+      title: folder.charAt(0).toUpperCase() + folder.split('-').join(' ').substring(1),
+      screenshots,
+      example: true
+    })
+  }
+  return example
 }
 
 async function scanUIStructure (rootPath, moduleName, urlStem) {

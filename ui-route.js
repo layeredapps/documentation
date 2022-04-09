@@ -20,6 +20,7 @@ module.exports = async (rootPath, moduleInfo, documentationPath, page) => {
   } else if (moduleInfo.moduleName === '@layeredapps/stripe-subscriptions') {
     embeddedPath = '/subscriptions'
   } else {
+    console.log('ui route', page)
     embeddedPath = ''
   }
   let prependPath = ''
@@ -35,6 +36,7 @@ module.exports = async (rootPath, moduleInfo, documentationPath, page) => {
   }
   const folderName = page.url === '/' ? 'index' : page.url.split('/').pop()
   const administrator = page.url.indexOf('/administrator') > -1
+  const account = page.url.indexOf('/account') > -1
   const navbar = fs.readFileSync(moduleInfo.navbarFile).toString().replace('class="ui"', 'class="active"')
   const merged = template.replace('<section id="navigation" class="navigation"></section>', `<section id="navigation" class="navigation">${navbar}</section>`)
   const doc = HTML.parse(merged)
@@ -78,7 +80,14 @@ module.exports = async (rootPath, moduleInfo, documentationPath, page) => {
     HTML.renderList(doc, screenshotData, 'screenshot-template', 'screenshots')
     HTML.applyImageSRI(doc)
   }
-  let htmlPath = `${prependPath}${administrator ? 'administrator' : 'account'}${embeddedPath}`
+  let htmlPath
+  if (administrator) {
+    htmlPath = `${prependPath}administrator${embeddedPath}`
+  } else if (account) {
+    htmlPath = `${prependPath}account${embeddedPath}`
+  } else {
+    htmlPath = prependPath
+  }
   htmlPath = path.join(documentationPath, 'ui', htmlPath)
   console.log(htmlPath, folderName)
   createFolderSync(htmlPath, documentationPath)

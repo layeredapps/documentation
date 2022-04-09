@@ -3,7 +3,7 @@ const fs = require('fs')
 const HTML = require('./html.js')
 const template = fs.readFileSync('./ui-index-template.html').toString()
 
-module.exports = async (rootPath, moduleInfo, documentationPath, sitemap) => {
+module.exports = async (rootPath, moduleInfo, documentationPath, sitemap, example) => {
   const navbar = fs.readFileSync(moduleInfo.navbarFile).toString().replace('class="ui"', 'class="active"')
   const merged = template.replace('<section id="navigation" class="navigation"></section>', `<section id="navigation" class="navigation">${navbar}</section>`)
   const doc = HTML.parse(merged)
@@ -15,7 +15,6 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap) => {
     node: 'text',
     text: `${moduleInfo.title} UI index`
   }]
-  const example = []
   const guest = []
   const user = []
   const administrator = []
@@ -47,12 +46,10 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap) => {
         }
       }
     }
-    if (key.startsWith('/account/')) {
+    if (key.indexOf('/account') > -1 || key.indexOf('/home') > -1) {
       user.push(sitemap.urls[key])
-    } else if (key.startsWith('/administrator/')) {
+    } else if (key.indexOf('/administrator') > -1) {
       administrator.push(sitemap.urls[key])
-    } else {
-      example.push(sitemap.urls[key])
     }
     if (sitemap.urls[key].authDescription) {
       guest.push(sitemap.urls[key])
@@ -77,6 +74,7 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap) => {
     container.parentNode.removeChild(container)
   }
   if (example && example.length) {
+    console.log('example urls', example)
     HTML.renderList(doc, example, 'route-template', 'example-routes-list')
   } else {
     const container = doc.getElementById('example-container')

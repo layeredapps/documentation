@@ -1,0 +1,86 @@
+name: generate-documentation
+
+on: [push]
+
+jobs:
+  generate-documentation:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Configure git
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+    - name: Set up Dashboard server
+      run: |
+        git pull origin main
+        mkdir -p /tmp/dashboard
+        cd /tmp/dashboard
+        cat > package.json<< EOF
+        {
+          "name": "documentation-dashboard",
+          "version": "1.0.0",
+          "engines": {
+            "node": ">=16.0",
+            "npm": ">=8.0"
+          },
+          "dependencies": {
+            "@layeredapps/dashboard": "latest",
+            "@layeredapps/organizations": "latest",
+            "@layeredapps/stripe-connect": "latest",
+            "@layeredapps/stripe-subscriptions": "latest",
+            "sqlite3": "^5.0.2"
+          },
+          "devDependencies": {
+            "@faker-js/faker": "latest",
+            "mocha": "latest",
+            "puppeteer": "latest"
+          },
+          "dashboard": {
+            "title": "Dashboard",
+            "modules": [
+              "@layeredapps/organizations",
+              "@layeredapps/maxmind-geoip",
+              "@layeredapps/stripe-connect",
+              "@layeredapps/stripe-subscriptions"
+            ]
+          }
+        }
+        EOF
+        npm install
+    - name: Set up example web app
+      run: git clone https://github.com/layeredapps/example-web-app /tmp/example-web-app
+    - name: Set up example subscription web app
+      run: git clone https://github.com/layeredapps/example-subscription-web-app /tmp/example-subscription-web-app   
+    - name: Run page generator
+      run: |
+        export DOCUMENTATION_PATH=`pwd`
+        git clone https://github.com/layeredapps/documentation /tmp/documentation
+        cd /tmp/documentation
+        npm install
+        node main.js
+      env:
+        DASHBOARD_SERVER_PATH: /tmp/dashboard
+        EXAMPLE_DASHBOARD_SERVER_PATH1: /tmp/example-web-app/dashboard-server
+        EXAMPLE_DASHBOARD_SERVER_PATH2: /tmp/example-subscription-web-app/dashboard-server
+    # - name: Deploy to Github Pages
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with:
+    #     external_repository: "layeredapps/layeredapps.github.io"
+    #     personal_token: ${{ secrets.DEPLOY_TOKEN }}
+    #     publish_dir: .
+    #     publish_branch: main
+    #     keep_files: true
+    - name: Publish to Github
+      uses: stefanzweifel/git-auto-commit-action@v4.1.6
+      with:
+        commit_message: Automatically regenerated against current version
+        branch: ${{ github.head_ref }}
+        commit_options: '--no-verify --signoff'
+        repository: .

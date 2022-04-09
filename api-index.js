@@ -95,7 +95,6 @@ module.exports = async (rootPath, moduleInfo, documentationPath, api) => {
     }
   }
   for (const id of removeList) {
-    console.log(id)
     const element = doc.getElementById(id)
     element.parentNode.removeChild(element)
   }
