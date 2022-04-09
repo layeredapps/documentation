@@ -35,6 +35,34 @@
     .deploy p a { color: #FFF }
     .deploy pre { width: 100%; padding: 0; margin: 0; overflow-x: auto; font-family: monospace; color: rgba(255, 255, 255, 0.75); text-align: left }
     .deploy .wrapper { margin: 0 auto; max-width: 40rem; padding: 1rem; background-color: rgba(255, 255, 255, 0.0675); border-radius: 0.5rem }
+    .tree-body { display: table; margin: 0 auto }
+    .tree-body .devices { margin-top: 1rem }
+    .tree-body #sitemap { margin-top: 5rem }
+    .tree,
+    .tree ul,
+    .tree li { list-style: none; margin: 0; padding: 0; position: relative }
+    .tree { margin: 0 0 1em; text-align: center }
+    .tree,
+    .tree ul { display: table }
+    .tree ul { width: 100% }
+    .tree li { display: table-cell; padding: 1rem 0 0 0; vertical-align: top }
+    .tree li:before { border-bottom: 0.1rem dotted #FFF; content: ""; left: 0; position: absolute; right: 0; top: 0 }
+    .tree li:first-child:before { left: 50% }
+    .tree li:last-child:before { right: 50% }
+    .tree span { display: inline-block; margin: 0 1rem 1rem; padding: 0.5rem; position: relative; border-radius: 0.5rem; border: 1px solid rgba(255, 255, 255, 0.5); color: #FFF; font-weight: bold; font-size: 0.8rem }
+    .tree ul:before,
+    .tree span:before { border-left: 0.1rem dotted #FFF; content: ""; height: 1rem; left: 50%; position: absolute }
+    .tree ul:before { top: -1rem }
+    .tree span:before { top: -1rem }
+    .tree>li { margin-top: 0 }
+    .tree>li:before,
+    .tree>li:after,
+    .tree>li>code:before { border: none }
+    .explain { margin: 2rem auto 0 auto; text-align: center; }
+    .explain h2 { font-size: 1rem; font-weight: normal; color: #FFF }
+    .explain ul { margin: 0 auto }
+    .explain li {background-color: transparent }
+    .explain span { padding: 0 1rem }
     @media (max-width: 650px) {
       .dashboard { width: 96%; margin: 1rem 0 }
       .dashboard h1 { margin: 0 }
@@ -67,7 +95,7 @@
         </ul>
         <p>Deploy it alongside your application and skip the web app boilerplate.</p>
         <a class="button button-spaced" href="/dashboard">Documentation</a>
-        <a class="button" href="https://github.com/layeredapps">Github</a>
+        <a class="button" href="https://github.com/layeredapps">Source code</a>
         <p>It's even easier with our managed hosting:</p>
         <a class="button button-imaged" href="https://layeredapps.com">
           <span class="wrapper">
@@ -75,6 +103,42 @@
             Layered Apps
           </span>
         </a>
+        <div class="explain">
+          <h2>How it works</h2>
+          <ul class="tree">
+            <li>
+              <span>User makes request</span>
+              <ul>
+                <li>
+                  <span>Dashboard receives request</span>
+                  <ul>
+                    <li>
+                      <span>URL recognized as Dashboard or Module content</span>
+                      <ul>
+                        <li>
+                          <span>User receives content from Dashboard server</span>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span>Dashboard forwards request to Application server</span>
+                      <ul>
+                        <li>
+                          <span>Application server returns content to Dashboard</span>
+                          <ul>
+                            <li>
+                              <span>User receives content from Application server</span>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>          
+        </div>
         <div class="deploy">
           <h2>Deplyment instructions</h2>
           <p>First set up NodeJS and your Dashboard server with any modules you want</p>

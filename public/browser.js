@@ -132,7 +132,7 @@ window.onload = function () {
       settings.appendChild(devices)
       // settings.appendChild(languages)
       const content = document.querySelector('.content')
-      content.insertBefore(screenshots, content.firstChild)
+      content.insertBefore(devices, content.firstChild)
     }
   }
 }
