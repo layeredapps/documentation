@@ -80,6 +80,14 @@ async function generate (rootPath, moduleName) {
     index = '/stripe-subscriptions-module'
     apiIndex = '/stripe-subscriptions-api'
     urlStem = 'subscriptions/'
+  } else if (moduleName === '@layeredapps/oauth') {
+    title = 'OAuth module'
+    navbarFile = './navbar-oauth.html'
+    index = '/oauth-module'
+  } else if (moduleName === '@layeredapps/oauth-github') {
+    title = 'OAuth GitHub module'
+    navbarFile = './navbar-oauth-github.html'
+    index = '/oauth-github-module'
   } else if (moduleName === 'example-web-app') {
     title = 'Example Web App'
     navbarFile = './navbar-example-web-app.html'
@@ -95,6 +103,7 @@ async function generate (rootPath, moduleName) {
     urlStem,
     navbarFile: path.join(__dirname, navbarFile)
   }
+  console.log(moduleInfo)
   // create the main documentation page
   await readmeConverter(rootPath, moduleInfo, documentationPath)
   // the ui structure

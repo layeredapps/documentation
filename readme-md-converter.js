@@ -43,6 +43,10 @@ function formatFileName (filePath) {
     return 'maxmind-geoip-module.html'
   } else if (filePath.indexOf('/organizations/') > -1) {
     return 'organizations-module.html'
+  } else if (filePath.indexOf('/oauth/') > -1) {
+    return 'oauth-module.html'
+  } else if (filePath.indexOf('/oauth-github/') > -1) {
+    return 'oauth-github-module.html'
   } else if (filePath.indexOf('/example-web-app') > -1) {
     return 'example-web-app.html'
   } else if (filePath.indexOf('example-subscription-web-app') > -1) {

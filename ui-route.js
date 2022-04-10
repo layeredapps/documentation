@@ -20,7 +20,6 @@ module.exports = async (rootPath, moduleInfo, documentationPath, page) => {
   } else if (moduleInfo.moduleName === '@layeredapps/stripe-subscriptions') {
     embeddedPath = '/subscriptions'
   } else {
-    console.log('ui route', page)
     embeddedPath = ''
   }
   let prependPath = ''
@@ -80,7 +79,6 @@ module.exports = async (rootPath, moduleInfo, documentationPath, page) => {
     htmlPath = prependPath
   }
   htmlPath = path.join(documentationPath, 'ui', htmlPath)
-  console.log(htmlPath, folderName)
   createFolderSync(htmlPath, documentationPath)
   const html = beautify(doc.toString(), { indent_size: 2, space_in_empty_paren: true })
   fs.writeFileSync(`${htmlPath}/${folderName}.html`, `<!doctype html>${html}`)

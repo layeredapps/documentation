@@ -74,7 +74,6 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap, exampl
     container.parentNode.removeChild(container)
   }
   if (example && example.length) {
-    console.log('example urls', example)
     HTML.renderList(doc, example, 'route-template', 'example-routes-list')
   } else {
     const container = doc.getElementById('example-container')
