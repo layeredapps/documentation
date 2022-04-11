@@ -19,13 +19,17 @@ jobs:
         git config --local user.name "github-actions[bot]"
     - name: Trigger documentation site regeneratoin
       run: |
-        git clone https://github.com/layeredapps/documentation documentation
-        cd documentation
-        echo `date` > timestamp
-    - name: Publish to Github
-      uses: stefanzweifel/git-auto-commit-action@v4.1.6
+        mkdir documentation
+        echo `date` > documentation/timestamp
+      env:
+        DASHBOARD_SERVER_PATH: /tmp/dashboard
+        EXAMPLE_DASHBOARD_SERVER_PATH1: /tmp/example-web-app/dashboard-server
+        EXAMPLE_DASHBOARD_SERVER_PATH2: /tmp/example-subscription-web-app/dashboard-server
+    - name: Deploy to Github Pages
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        commit_message: Automatically regenerated against current version
-        branch: ${{ github.head_ref }}
-        commit_options: '--no-verify --signoff'
-        repository: documentation
+        external_repository: "layeredapps/layeredapps.github.io"
+        personal_token: ${{ secrets.DEPLOY_TOKEN }}
+        publish_dir: documentation
+        publish_branch: main
+        keep_files: true
