@@ -19,7 +19,7 @@ jobs:
         git config --local user.name "github-actions[bot]"
     - name: Trigger documentation site regeneratoin
       run: |
-        git clone https://github.com/layeredapps/layeredapps.github.io documentation
+        mkdir documentation
         echo `date` > documentation/timestamp
     - name: Deploy to Github Pages
       uses: peaceiris/actions-gh-pages@v3
@@ -28,3 +28,4 @@ jobs:
         personal_token: ${{ secrets.DEPLOY_TOKEN }}
         publish_dir: documentation
         publish_branch: main
+        keep_files: true
