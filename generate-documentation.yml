@@ -21,10 +21,6 @@ jobs:
       run: |
         mkdir documentation
         echo `date` > documentation/timestamp
-      env:
-        DASHBOARD_SERVER_PATH: /tmp/dashboard
-        EXAMPLE_DASHBOARD_SERVER_PATH1: /tmp/example-web-app/dashboard-server
-        EXAMPLE_DASHBOARD_SERVER_PATH2: /tmp/example-subscription-web-app/dashboard-server
     - name: Deploy to Github Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
