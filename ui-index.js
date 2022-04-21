@@ -28,6 +28,9 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap, exampl
     if (moduleInfo.urlStem && key.indexOf(moduleInfo.urlStem) === -1) {
       continue
     }
+    if (!sitemap.urls[key].screenshots || !sitemap.urls[key].screenshots.length) {
+      continue
+    }
     sitemap.urls[key].object = 'route'
     sitemap.urls[key].title = key.split('/').pop().split('-').join(' ')
     sitemap.urls[key].title = sitemap.urls[key].title.charAt(0).toUpperCase() + sitemap.urls[key].title.substring(1)
@@ -45,6 +48,12 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap, exampl
           break
         }
       }
+    }
+    if (!sitemap.urls[key].src) {
+      sitemap.urls[key].src = sitemap.urls[key].screenshots[sitemap.urls[key].screenshots.length - 1]
+    }
+    if (!sitemap.urls[key].src) {
+      continue
     }
     if (key.indexOf('/account') > -1 || key.indexOf('/home') > -1) {
       user.push(sitemap.urls[key])

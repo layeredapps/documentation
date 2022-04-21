@@ -44,7 +44,7 @@ module.exports = async (rootPath, moduleInfo, documentationPath, page) => {
   }]
   const screenshotData = []
   for (const screenshot of page.screenshots) {
-    if (screenshot.indexOf('desktop-en.png') === -1) {
+    if (screenshot.indexOf('desktop-en-light.png') === -1) {
       continue
     }
     const filenameParts = screenshot.split('/').pop().split('-')

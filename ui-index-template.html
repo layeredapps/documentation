@@ -5,9 +5,14 @@
     <link rel="stylesheet" href="/public/style.css">
     <script async src="/public/highlight.min.js"></script>
     <script src="/public/browser.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/public/wa-mediabox.min.css">
     <script async src="/public/wa-mediabox.min.js"></script>
+    <link rel="icon" href="/public/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/public/apple-touch-icon.png" />
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#000000">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
   </head>
@@ -22,6 +27,7 @@
         <section class="full">
           <a name="content" id="content"></a>
           <h1 id="title">UI routes</h1>
+          <p>Account information like email addresses is generated with <a href="https://github.com/faker-js/faker">faker-js</a> it is not real user information.</p>
           <div class="content">
             <div class="ui-container" id="example-container">
               <h2>Example usage</h2>
@@ -50,7 +56,7 @@
     </div>
     <template id="route-template">
       <li>
-        <a class="screenshot-link" href="${route.url}"><img data-src="${route.src}"></a>
+        <a class="screenshot-link" href="/ui${route.url}"><img data-src="${route.src}"></a>
         <a class="route-link" href="/ui${route.url}">"${route.title}" navigation guide</a>
       </li>
     </template>

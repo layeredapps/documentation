@@ -103,7 +103,6 @@ async function generate (rootPath, moduleName) {
     urlStem,
     navbarFile: path.join(__dirname, navbarFile)
   }
-  console.log(moduleInfo)
   // create the main documentation page
   await readmeConverter(rootPath, moduleInfo, documentationPath)
   // the ui structure
@@ -187,6 +186,9 @@ async function scanExamples (documentationPath, moduleName) {
       if (file.endsWith('.png')) {
         screenshots.push(`/screenshots${prefix}/${folder}/${file}`)
       }
+    }
+    if (!screenshots.length) {
+      continue
     }
     example.push({
       object: 'route',

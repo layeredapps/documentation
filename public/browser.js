@@ -1,5 +1,13 @@
 let language = 'en'
 let device = 'desktop'
+let mode = 'light'
+const sizes = {
+  'desktop': { width: 1920, height: 1080 },
+  'ipad-mini': { width: 1536, height: 2048 },
+  'ipad-pro': { width: 2048, height: 2732 },
+  'iphone-se': { width: 640, height: 1136 },
+  'pixel-2-xl': { width: 1439, height: 2881 },
+}
 
 window.onload = function () {
   // disable modal views on screenshots for small screens
@@ -42,13 +50,16 @@ window.onload = function () {
       if (!screenshots) {
         continue
       }
-      const images = screenshots.getElementsByTagName('img')
-      for (var j = 0, len = images.length; j < len; j++) {
-        const image = images[j]
-        if (!image.hasAttribute('data-src')) {
-          image.setAttribute('data-src', image.src)
+      const listItems = screenshots.getElementsByTagName('li')
+      for (const listItem of listItems) {
+        const images = listItem.getElementsByTagName('img')
+        for (var j = 0, jLen = images.length; j < jLen; j++) {
+          const image = images[j]
+          if (!image.hasAttribute('data-src')) {
+            image.setAttribute('data-src', image.src)
+          }
+          window.WAMediaBox.bind(image)
         }
-        window.WAMediaBox.bind(image)
       }
       if (i > 0) {
         continue
@@ -128,11 +139,26 @@ window.onload = function () {
       // languages.appendChild(magyar)
       // languages.appendChild(turkish)
       // languages.appendChild(vietnamese)
+      const lightMode = document.createElement('li')
+      lightMode.innerHTML = 'Light mode'
+      lightMode.className = 'current'
+      lightMode.mode = 'light'
+      lightMode.onclick = setScreenshotMode
+      const darkMode = document.createElement('li')
+      darkMode.innerHTML = 'Dark mode'
+      darkMode.mode = 'dark'
+      darkMode.onclick = setScreenshotMode
+      const modes = document.createElement('ul')
+      modes.className = 'modes'
+      modes.style.display = 'none'
+      modes.appendChild(lightMode)
+      modes.appendChild(darkMode)
       const settings = document.createElement('div')
       settings.appendChild(devices)
+      settings.appendChild(modes)
       // settings.appendChild(languages)
       const content = document.querySelector('.content')
-      content.insertBefore(devices, content.firstChild)
+      content.insertBefore(settings, content.firstChild)
     }
   }
 }
@@ -150,16 +176,58 @@ function setScreenshotLanguage (e) {
     if (!screenshots) {
       continue
     }
+    const listItems = screenshots.getElementsByTagName('li')
+    for (const listItem of listItems) {
+      const images = listItem.getElementsByTagName('img')
+      for (var j = 0, len = images.length; j < len; j++) {
+        const image = images[j]
+        let filename = image.getAttribute('data-src')
+        filename = cutDeviceLanguageMode(filename)
+        filename += device + '-' + language + '.png'
+        image.src = filename
+        image.style.display = 'block'
+        if (window.WAMediaBox.galleries && window.WAMediaBox.galleries._ && window.WAMediaBox.galleries._.mediaList) {
+          // window.WAMediaBox.galleries._.mediaList[j].src = image.src
+          console.log(window.WAMediaBox.galleries._.mediaList[j])
+        }
+      }
+    }
+  }
+  e.preventDefault()
+  return false
+}
+
+function setScreenshotMode (e) {
+  const li = e.target
+  mode = li.mode
+  const devices = document.getElementsByClassName('modes')[0]
+  for (let i = 0, len = devices.children.length; i < len; i++) {
+    devices.children[i].className = devices.children[i] === li ? 'current' : ''
+  }
+  const deviceSize = sizes[device]
+  const containers = document.getElementsByClassName('screenshots')
+  for (let i = 0, len = containers.length; i < len; i++) {
+    const screenshots = containers[i]
     const images = screenshots.getElementsByTagName('img')
-    for (var j = 0, len = images.length; j < len; j++) {
+    for (let j = 0, jLen = images.length; j < jLen; j++) {
       const image = images[j]
+      image.onload = () => {
+        image.parentNode.style.maxHeight = Math.floor((image.width / deviceSize.width) * deviceSize.height) + 'px'
+        image.parentNode.style.overflow = 'hidden'
+      }
       let filename = image.getAttribute('data-src')
-      filename = cutDeviceLanguage(filename)
-      filename += device + '-' + language + '.png'
+      filename = previousFilename = cutDeviceLanguageMode(filename)
+      filename += device + '-' + language + '-' + mode + '.png'
       image.src = filename
       image.style.display = 'block'
       if (window.WAMediaBox.galleries && window.WAMediaBox.galleries._ && window.WAMediaBox.galleries._.mediaList) {
-        window.WAMediaBox.galleries._.mediaList[j].src = image.src
+        for (let k = 0; k < window.WAMediaBox.galleries._.mediaList.length; k++) {
+          const src = cutDeviceLanguageMode(window.WAMediaBox.galleries._.mediaList[k].src)
+          if (src.endsWith(previousFilename)) {
+            window.WAMediaBox.galleries._.mediaList[k].src = image.src
+            break
+          }
+        }
       }
     }
   }
@@ -170,23 +238,36 @@ function setScreenshotLanguage (e) {
 function setScreenshotDevice (e) {
   const li = e.target
   device = li.device
+  const modes = document.getElementsByClassName('modes')[0]
+  modes.style.display = ''
   const devices = document.getElementsByClassName('devices')[0]
   for (let i = 0, len = devices.children.length; i < len; i++) {
     devices.children[i].className = devices.children[i] === li ? 'current' : ''
   }
+  const deviceSize = sizes[device]
   const containers = document.getElementsByClassName('screenshots')
   for (let i = 0, len = containers.length; i < len; i++) {
     const screenshots = containers[i]
     const images = screenshots.getElementsByTagName('img')
     for (let j = 0, jLen = images.length; j < jLen; j++) {
       const image = images[j]
+      image.onload = () => {
+        image.parentNode.style.maxHeight = Math.floor((image.width / deviceSize.width) * deviceSize.height) + 'px'
+        image.parentNode.style.overflow = 'hidden'
+      }
       let filename = image.getAttribute('data-src')
-      filename = cutDeviceLanguage(filename)
-      filename += device + '-' + language + '.png'
+      filename = previousFilename = cutDeviceLanguageMode(filename)
+      filename += device + '-' + language + '-' + mode + '.png'
       image.src = filename
       image.style.display = 'block'
       if (window.WAMediaBox.galleries && window.WAMediaBox.galleries._ && window.WAMediaBox.galleries._.mediaList) {
-        window.WAMediaBox.galleries._.mediaList[j].src = image.src
+        for (let k = 0; k < window.WAMediaBox.galleries._.mediaList.length; k++) {
+          const src = cutDeviceLanguageMode(window.WAMediaBox.galleries._.mediaList[k].src)
+          if (src.endsWith(previousFilename)) {
+            window.WAMediaBox.galleries._.mediaList[k].src = image.src
+            break
+          }
+        }
       }
     }
   }
@@ -194,7 +275,7 @@ function setScreenshotDevice (e) {
   return false
 }
 
-function cutDeviceLanguage (filename) {
+function cutDeviceLanguageMode (filename) {
   const deviceKeys = [ 'desktop', 'ipad', 'pixel', 'iphone' ]
   for (const device of deviceKeys) {
     const index = filename.indexOf(device)
@@ -202,7 +283,7 @@ function cutDeviceLanguage (filename) {
       return filename.substring(0, index)
     }
   }
-  return filenmae
+  return filename
 }
 
 function setNoScreenshot (e) {
