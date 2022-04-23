@@ -101,7 +101,7 @@ p { max-width: 90rem }
 h1 a,
 h2 a,
 h3 a,
-p a { font-size: inherit }
+p a { font-size: inherit; text-decoration: underline }
 
 .section-container { padding: 1rem }
 .full { max-width: 100% }
@@ -241,7 +241,7 @@ pre,
   --table-alt-background-color: #DDD;
   --link-text-color: #117;
   --link-hover-text-color: #07C;
-  --header-gradient: linear-gradient(30deg, #117, #715, #ea3);
+  --header-gradient: linear-gradient(30deg, #117, #000);
   --header-text-color: #FFF;
   --header-link-text-color: rgba(255, 255, 255, 0.75);
   --navigation-heading-text-color: rgba(255, 255, 255, 0.5);
@@ -281,18 +281,18 @@ pre,
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --page-background-color: #111;
+    --page-background-color: #22222b;
     --page-text-color: rgba(255, 255, 255, 0.75);
     --table-heading-background-color: #333;
     --table-heading-text-color: #FFF;
     --table-alt-background-color: #DDD;
-    --link-text-color: #FC0;
+    --link-text-color: #FFF;
     --link-hover-text-color: rgba(255, 150, 0, 0.75);
-    --header-gradient: linear-gradient(30deg, rgb(9, 9, 58), rgb(54, 8, 39), rgb(63, 44, 11));
+    --header-gradient: linear-gradient(30deg, #000, #22222b);
     --header-text-color: #FFF;
     --header-link-text-color: rgba(255, 255, 255, 0.75);
     --navigation-heading-text-color: rgba(255, 255, 255, 0.5);
-    --navigation-active-submenu-background-color: #111;
+    --navigation-active-submenu-background-color: #22222b;
     --navigation-active-submenu-text-color: rgba(255, 255, 255, 0.75);
     --navigation-active-submenu-link-text-color: #FFF;
     --navigation-link-text-color: rgba(255, 255, 255, 0.75);
