@@ -49,19 +49,23 @@ async function start () {
 start()
 
 async function generate (rootPath, moduleName) {
-  let title, navbarFile, apiIndex, index, urlStem
+  let title, navbarFile, apiIndex, index, urlStem, accountHome, administratorHome
   if (moduleName === '@layeredapps/dashboard') {
     title = 'Dashboard'
     navbarFile = './navbar-dashboard.html'
     index = '/dashboard'
     apiIndex = '/dashboard-api'
     urlStem = ''
+    accountHome = '/account'
+    administratorHome = '/administrator'
   } else if (moduleName === '@layeredapps/organizations') {
     title = 'Organizations module'
     navbarFile = './navbar-organizations.html'
     index = '/organizations-module'
     apiIndex = '/organizations-api'
-    urlStem = 'organizations/'
+    urlStem = '/organizations'
+    accountHome = '/account/organizations'
+    administratorHome = '/administrator/organizations'
   } else if (moduleName === '@layeredapps/maxmind-geoip') {
     title = 'MaxMind GeoIP module'
     navbarFile = './navbar-maxmind-geoip.html'
@@ -73,13 +77,17 @@ async function generate (rootPath, moduleName) {
     navbarFile = './navbar-stripe-connect.html'
     index = '/stripe-connect-module'
     apiIndex = '/stripe-connect-api'
-    urlStem = 'connect/'
+    urlStem = '/connect'
+    accountHome = '/account/connect'
+    administratorHome = '/administrator/connect'
   } else if (moduleName === '@layeredapps/stripe-subscriptions') {
     title = 'Stripe Subscriptions module'
     navbarFile = './navbar-stripe-subscriptions.html'
     index = '/stripe-subscriptions-module'
     apiIndex = '/stripe-subscriptions-api'
-    urlStem = 'subscriptions/'
+    urlStem = '/subscriptions'
+    accountHome = '/account/subscriptions'
+    administratorHome = '/administrator/subscriptions'
   } else if (moduleName === '@layeredapps/oauth') {
     title = 'OAuth module'
     navbarFile = './navbar-oauth.html'
@@ -119,6 +127,9 @@ async function generate (rootPath, moduleName) {
       } else {
         urlPath = path.join(documentationPath, 'screenshots/' + moduleName, url)
       }
+      if (url === accountHome || url === administratorHome) {
+        urlPath = path.join(urlPath, 'index')
+      }
       if (fs.existsSync(urlPath)) {
         const files = fs.readdirSync(urlPath)
         const screenshots = []
@@ -128,12 +139,19 @@ async function generate (rootPath, moduleName) {
         } else {
           prefix = `/${moduleInfo.moduleName}`
         }
+        let imageURL = url
+        if (url === accountHome || url === administratorHome) {
+          imageURL += '/index'
+        }
         for (const file of files) {
           if (file.endsWith('.png')) {
-            screenshots.push(`/screenshots${prefix}${url}/${file}`)
+            screenshots.push(`/screenshots${prefix}${imageURL}/${file}`)
           }
         }
         ui.urls[url].screenshots = screenshots
+        console.log('has screenshots', url, screenshots.length, urlPath)
+      } else{
+        console.log('no screenshots', url, urlPath)
       }
     }
     const example = await scanExamples(documentationPath, moduleName)
@@ -143,6 +161,7 @@ async function generate (rootPath, moduleName) {
         continue
       }
       if (urlStem && url.indexOf(urlStem) === -1) {
+        console.log('skip url for not having urlstem', url, urlStem)
         continue
       }
       await createUIRoute(rootPath, moduleInfo, documentationPath, ui.urls[url])
