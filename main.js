@@ -149,9 +149,6 @@ async function generate (rootPath, moduleName) {
           }
         }
         ui.urls[url].screenshots = screenshots
-        console.log('has screenshots', url, screenshots.length, urlPath)
-      } else{
-        console.log('no screenshots', url, urlPath)
       }
     }
     const example = await scanExamples(documentationPath, moduleName)
@@ -161,7 +158,6 @@ async function generate (rootPath, moduleName) {
         continue
       }
       if (urlStem && url.indexOf(urlStem) === -1) {
-        console.log('skip url for not having urlstem', url, urlStem)
         continue
       }
       await createUIRoute(rootPath, moduleInfo, documentationPath, ui.urls[url])

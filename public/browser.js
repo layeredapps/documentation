@@ -188,7 +188,6 @@ function setScreenshotLanguage (e) {
         image.style.display = 'block'
         if (window.WAMediaBox.galleries && window.WAMediaBox.galleries._ && window.WAMediaBox.galleries._.mediaList) {
           // window.WAMediaBox.galleries._.mediaList[j].src = image.src
-          console.log(window.WAMediaBox.galleries._.mediaList[j])
         }
       }
     }
