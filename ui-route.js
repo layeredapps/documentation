@@ -5,30 +5,55 @@ const path = require('path')
 const template = fs.readFileSync('./ui-route-template.html').toString()
 
 module.exports = async (rootPath, moduleInfo, documentationPath, page) => {
-  if( !page.screenshots) {
+  if( !page.screenshots || !page.screenshots.length) {
     return
   }
-  let embeddedPath
+  let embeddedPath, prependPath, folderName
   if (moduleInfo.moduleName === '@layeredapps/dashboard') {
+    prependPath = ''
     embeddedPath = ''
+    folderName = page.url === '/account' || page.url === '/administrator' ? 'index' : page.url.split('/').pop()
   } else if (moduleInfo.moduleName === '@layeredapps/organizations') {
+    prependPath = ''
     embeddedPath = '/organizations'
-  } else if (moduleInfo.moduleName === '@layeredapps/maxmind-geoip') {
-    embeddedPath = ''
+    folderName = page.url === '/account/organizations' || page.url === '/administrator/organizations' ? 'index' : page.url.split('/').pop()
   } else if (moduleInfo.moduleName === '@layeredapps/stripe-connect') {
+    prependPath = ''
     embeddedPath = '/connect'
+    folderName = page.url === '/account/connect' || page.url === '/administrator/connect' ? 'index' : page.url.split('/').pop()
   } else if (moduleInfo.moduleName === '@layeredapps/stripe-subscriptions') {
+    prependPath = ''
     embeddedPath = '/subscriptions'
+    folderName = page.url === '/account/subscriptions' || page.url === '/administrator/subscriptions' ? 'index' : page.url.split('/').pop()
   } else {
-    embeddedPath = ''
+    if (moduleInfo.moduleName === 'example-web-app') {
+      prependPath = 'example-web-app/'
+    } else if (moduleInfo.moduleName === 'example-subscription-web-app') {
+      prependPath = 'example-subscription-web-app/'
+    }
+    if (page.screenshots && page.screenshots[0].indexOf('/organizations') > -1) {
+      embeddedPath = '/organizations'
+    } else if (page.screenshots && page.screenshots[0].indexOf('/subscriptions') > -1) {
+      embeddedPath = '/subscriptions'
+    } else if (page.screenshots && page.screenshots[0].indexOf('/connect') > -1) {
+      embeddedPath = '/connect'
+    } else {
+      embeddedPath = ''
+    }
+    folderName = page.url === '/' ? 'index' : page.url.split('/').pop()
+    if (page.url === '/example-web-app/account' || 
+        page.url === '/example-web-app/administrator' || 
+        page.url === '/example-web-app/account/organizations' || 
+        page.url === '/example-web-app/administrator/organizations' ||
+        page.url === '/example-subscription-web-app/account' || 
+        page.url === '/example-subscription-web-app/administrator' || 
+        page.url === '/example-subscription-web-app/account/organizations' || 
+        page.url === '/example-subscription-web-app/administrator/organizations' ||
+        page.url === '/example-subscription-web-app/account/subscriptions' ||
+        page.url === '/example-subscription-web-app/administrator/subscriptions') {
+      folderName = 'index'
+    }
   }
-  let prependPath = ''
-  if (moduleInfo.moduleName === 'example-web-app') {
-    prependPath = 'example-web-app/'
-  } else if (moduleInfo.moduleName === 'example-subscription-web-app') {
-    prependPath = 'example-subscription-web-app/'
-  }
-  const folderName = page.url === '/' ? 'index' : page.url.split('/').pop()
   const administrator = page.url.indexOf('/administrator') > -1
   const account = page.url.indexOf('/account') > -1
   const navbar = fs.readFileSync(moduleInfo.navbarFile).toString().replace('class="ui"', 'class="active"')

@@ -49,11 +49,10 @@ async function start () {
 start()
 
 async function generate (rootPath, moduleName) {
-  let title, navbarFile, apiIndex, index, urlStem, accountHome, administratorHome
+  let title, navbarFile, apiIndex, urlStem, accountHome, administratorHome
   if (moduleName === '@layeredapps/dashboard') {
     title = 'Dashboard'
     navbarFile = './navbar-dashboard.html'
-    index = '/dashboard'
     apiIndex = '/dashboard-api'
     urlStem = ''
     accountHome = '/account'
@@ -61,7 +60,6 @@ async function generate (rootPath, moduleName) {
   } else if (moduleName === '@layeredapps/organizations') {
     title = 'Organizations module'
     navbarFile = './navbar-organizations.html'
-    index = '/organizations-module'
     apiIndex = '/organizations-api'
     urlStem = '/organizations'
     accountHome = '/account/organizations'
@@ -69,13 +67,11 @@ async function generate (rootPath, moduleName) {
   } else if (moduleName === '@layeredapps/maxmind-geoip') {
     title = 'MaxMind GeoIP module'
     navbarFile = './navbar-maxmind-geoip.html'
-    index = '/maxmind-geoip-module'
     apiIndex = '/maxmind-geoip-api'
     urlStem = ''
   } else if (moduleName === '@layeredapps/stripe-connect') {
     title = 'Stripe Connect module'
     navbarFile = './navbar-stripe-connect.html'
-    index = '/stripe-connect-module'
     apiIndex = '/stripe-connect-api'
     urlStem = '/connect'
     accountHome = '/account/connect'
@@ -83,7 +79,6 @@ async function generate (rootPath, moduleName) {
   } else if (moduleName === '@layeredapps/stripe-subscriptions') {
     title = 'Stripe Subscriptions module'
     navbarFile = './navbar-stripe-subscriptions.html'
-    index = '/stripe-subscriptions-module'
     apiIndex = '/stripe-subscriptions-api'
     urlStem = '/subscriptions'
     accountHome = '/account/subscriptions'
@@ -91,7 +86,6 @@ async function generate (rootPath, moduleName) {
   } else if (moduleName === '@layeredapps/oauth') {
     title = 'OAuth module'
     navbarFile = './navbar-oauth.html'
-    index = '/oauth-module'
   } else if (moduleName === '@layeredapps/oauth-github') {
     title = 'OAuth GitHub module'
     navbarFile = './navbar-oauth-github.html'
@@ -106,7 +100,6 @@ async function generate (rootPath, moduleName) {
   const moduleInfo = {
     moduleName,
     title,
-    index,
     apiIndex,
     urlStem,
     navbarFile: path.join(__dirname, navbarFile)
@@ -127,8 +120,10 @@ async function generate (rootPath, moduleName) {
       } else {
         urlPath = path.join(documentationPath, 'screenshots/' + moduleName, url)
       }
-      if (url === accountHome || url === administratorHome) {
+      let addIndex = false
+      if (!fs.existsSync(urlPath)) {
         urlPath = path.join(urlPath, 'index')
+        addIndex = true
       }
       if (fs.existsSync(urlPath)) {
         const files = fs.readdirSync(urlPath)
@@ -140,7 +135,7 @@ async function generate (rootPath, moduleName) {
           prefix = `/${moduleInfo.moduleName}`
         }
         let imageURL = url
-        if (url === accountHome || url === administratorHome) {
+        if (addIndex) {
           imageURL += '/index'
         }
         for (const file of files) {
@@ -235,7 +230,7 @@ async function scanUIStructure (rootPath, moduleName, urlStem) {
     if (!raw.urls[key].htmlFilePath) {
       continue
     }
-    if (!urlStem || raw.urls[key].htmlFilePath.indexOf(urlStem) > -1) {
+    if (!moduleName.startsWith('@') || (urlStem && raw.urls[key].htmlFilePath.indexOf(urlStem) > -1)) {
       sitemap.urls[key] = raw.urls[key]
     }
   }
