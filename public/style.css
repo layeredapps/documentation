@@ -283,7 +283,7 @@ pre,
   :root {
     --page-background-color: #22222b;
     --page-text-color: rgba(255, 255, 255, 0.75);
-    --table-heading-background-color: #333;
+    --table-heading-background-color: rgba(0, 0, 0, 0.5);
     --table-heading-text-color: #FFF;
     --table-alt-background-color: #DDD;
     --link-text-color: #FFF;
@@ -299,12 +299,12 @@ pre,
     --navigation-link-hover-text-color: #FFF;
     --navigation-active-heading-color: rgba(255, 255, 255, 0.125);
     --content-code-color: #D2AE7F;
-    --content-pre-background-color: #312C2C;
+    --content-pre-background-color: rgba(0, 0, 0, 0.5);
     --content-pre-text-color: #CCC;
     --toggle-text-color: #999;
     --toggle-text-hover-color: #CCC;
-    --toggle-current-background-color: #333;
-    --screenshot-border-color: #333;
+    --toggle-current-background-color: rgba(0, 0, 0, 0.5);
+    --screenshot-border-color: rgba(0, 0, 0, 0.5);
     --screenshot-shadow-color: #111;
     --get-color: darkgreen;
     --post-color: darkblue;
