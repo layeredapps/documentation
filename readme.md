@@ -101,6 +101,16 @@ If you would like to contribute check [Github Issues](https://github.com/layered
 
 For help using or contributing to this software join the freenode IRC `#layeredapps` chatroom - [Web IRC client](https://kiwiirc.com/nextclient/).
 
+## Icons
+
+Icons are obtained via [FlatIcon](https://flaticon.com) and copyright their respective owners:
+
+- [Home button](https://www.flaticon.com/free-icon/home-button_60817) by [Google](https://www.flaticon.com/authors/google)
+- [Account button](https://www.flaticon.com/free-icon/round-account-button-with-user-inside_61205) by [Google](https://www.flaticon.com/authors/google)
+- [Administrator button](https://www.flaticon.com/free-icon/database_149749) by [Smashicons](https://www.flaticon.com/authors/smashicons)
+- [Spillage menu](https://www.flaticon.com/free-icon/three-dots-more-indicator_60969) by [Google](https://www.flaticon.com/authors/google)
+- [Cube with layers](https://www.flaticon.com/authors/freepik) by [Freepik](https://www.flaticon.com/authors/freepik)
+
 ## License
 
 This software is licensed under the MIT license, a copy is enclosed in the `LICENSE` file.  Included icon assets are licensed separately, refer to the `icons/licenses` folder for their licensing information.
