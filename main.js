@@ -107,10 +107,16 @@ async function generate (rootPath, moduleName) {
   // create the main documentation page
   await readmeConverter(rootPath, moduleInfo, documentationPath)
   // the ui structure
-  const ui = await scanUIStructure(rootPath, moduleName, urlStem)
+  const ui = await scanUIStructure(rootPath, moduleName)
   if (ui) {
+    let prefix
+    if (moduleInfo.moduleName.startsWith('@')) {
+      prefix = ''
+    } else {
+      prefix = `/${moduleInfo.moduleName}`
+    }
     for (const url in ui.urls) {
-      if (url === '/' || url.startsWith('/api/') || url.startsWith('/webhooks/')) {
+      if (url === '/' || url.startsWith('/api/') || url.startsWith('/webhooks/') || url.startsWith('/auth/')) {
         continue
       }
       ui.urls[url].url = url
@@ -120,31 +126,7 @@ async function generate (rootPath, moduleName) {
       } else {
         urlPath = path.join(documentationPath, 'screenshots/' + moduleName, url)
       }
-      let addIndex = false
-      if (!fs.existsSync(urlPath)) {
-        urlPath = path.join(urlPath, 'index')
-        addIndex = true
-      }
-      if (fs.existsSync(urlPath)) {
-        const files = fs.readdirSync(urlPath)
-        const screenshots = []
-        let prefix
-        if (moduleInfo.moduleName.startsWith('@')) {
-          prefix = ''
-        } else {
-          prefix = `/${moduleInfo.moduleName}`
-        }
-        let imageURL = url
-        if (addIndex) {
-          imageURL += '/index'
-        }
-        for (const file of files) {
-          if (file.endsWith('.png')) {
-            screenshots.push(`/screenshots${prefix}${imageURL}/${file}`)
-          }
-        }
-        ui.urls[url].screenshots = screenshots
-      }
+      ui.urls[url].screenshots = findScreenshots(url, urlPath, prefix)
     }
     const example = await scanExamples(documentationPath, moduleName)
     await createUIIndex(rootPath, moduleInfo, documentationPath, ui, example)
@@ -175,6 +157,35 @@ async function generate (rootPath, moduleName) {
   const env = await scanConfiguration(rootPath, moduleName)
   if (env) {
     await environmentVariables(rootPath, moduleInfo, documentationPath, env)
+  }
+}
+
+function findScreenshots (url, urlPath, prefix) {
+  let addIndex = false
+  if (!fs.existsSync(urlPath)) {
+    urlPath = path.join(urlPath, 'index')
+    addIndex = true
+  } else {
+    // because eg /account exists but the screenshot path is /account/index
+    const alternative = path.join(urlPath, 'index')
+    if (fs.existsSync(alternative)) {
+      urlPath = alternative
+      addIndex = true
+    }
+  }
+  if (fs.existsSync(urlPath)) {
+    const files = fs.readdirSync(urlPath)
+    const screenshots = []
+    let imageURL = url
+    if (addIndex) {
+      imageURL += '/index'
+    }
+    for (const file of files) {
+      if (file.endsWith('.png')) {
+        screenshots.push(`/screenshots${prefix}${imageURL}/${file}`)
+      }
+    }
+    return screenshots
   }
 }
 
@@ -212,7 +223,7 @@ async function scanExamples (documentationPath, moduleName) {
   return example
 }
 
-async function scanUIStructure (rootPath, moduleName, urlStem) {
+async function scanUIStructure (rootPath, moduleName) {
   let filePath
   if (moduleName.startsWith('@')) {
     filePath = path.join(rootPath, `node_modules/${moduleName}/sitemap.json`)
@@ -230,7 +241,12 @@ async function scanUIStructure (rootPath, moduleName, urlStem) {
     if (!raw.urls[key].htmlFilePath) {
       continue
     }
-    if (!moduleName.startsWith('@') || (urlStem && raw.urls[key].htmlFilePath.indexOf(urlStem) > -1)) {
+    // examples get all urls
+    if (!moduleName.startsWith('@')) {
+      sitemap.urls[key] = raw.urls[key]
+    }
+    // modules only get own urls
+    else if (!raw.urls[key].htmlFilePath.startsWith('/node_modules/')) {
       sitemap.urls[key] = raw.urls[key]
     }
   }
