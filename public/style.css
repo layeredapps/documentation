@@ -122,7 +122,7 @@ header a { font-size: 1.4rem; color: var(--hedaer-link-text-color); font-size: 1
 .navigation .submenu li { margin: 0 1rem 0 0; padding: 0.5rem 1rem; display: inline-block }
 .navigation .submenu li.active { background-color: var(--navigation-active-submenu-background-color); border-radius: 0.5rem 0.5rem 0 0; color: var(--navigation-active-submenu-text-color) }
 .navigation .submenu li.active a { color: var(--navigation-active-submenu-link-text-color) }
-.navigation a { font-weight: bold; color: var(--navigation-link-text-color); font-size: 0.9rem }
+.navigation a { color: var(--navigation-link-text-color); font-size: 1rem; font-weight: 500; text-decoration: none }
 .navigation a:hover { color: var(--navigation-link-hover-text-color); text-decoration: underline }
 .navigation .active h2 { background-color: var(--navigation-active-heading-color); border-radius: 0.5rem }
 .navigation .active li { display: inline-block; margin-right: 2rem }
