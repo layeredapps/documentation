@@ -100,8 +100,9 @@
     .container {  display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: auto; min-height: 100%; background: var(--gradient-background) }
     .dashboard { min-width: 230px; border-radius: 0.5rem; width: 80%; margin: 4rem 0; background: var(--dashboard-background) }
     .header { background-color: var(--header-background-color); border-radius: 0.5rem 0.5rem 0 0; height: 3rem; line-height: 3rem; color: inherit; width: 100%; display: grid; grid-template-columns: auto 1fr }
-    .header h1 {  margin: 0; background: url(/public/004-cube-with-layers.png) no-repeat; background-position: 0.5rem 0.5rem; background-size: auto 2rem; font-size: 1.6rem; text-indent: 3rem; font-weight: normal; color: var(--header-title-text-color); opacity: 0.75 }
-    .header img { width: 1.5rem; height: 1.5rem; margin-top: 0.75rem; display: block; float: right; margin-left: 0.5rem; opacity: 0.25 }
+    .header h1 { display: flex; margin: 0; font-size: 1.6rem; font-weight: normal; color: var(--header-title-text-color); opacity: 0.75 }
+    .header img { width: 1.5rem; height: 1.5rem; margin-top: 0.75rem; display: block; margin-left: 0.5rem; opacity: 0.75; filter: invert(1) }
+    .header h1 img { margin-right: 0.5rem }
     .header .menu { height: 3rem; float: right; color: var(--header-menu-text-color); line-height: 3rem; font-size: 0.9rem; margin-right: 1rem }
     .header .menu span { display: inline-block; height: 3rem; line-height: 3rem }
     .content { padding-bottom: 4rem; text-align: center }
@@ -116,10 +117,10 @@
     .content .button:active,
     .content .button:hover { border-color: var(--content-button-hover-border-color); color: var(--content-button-hover-text-color) }
     .content .button-spaced { margin-right: 1rem }
-    .content .button-imaged { line-height: 3rem }
+    .content .button-imaged { padding-left: 0.5rem; line-height: 3rem }
     .content .button-imaged .wrapper { display: flex }
-    .content .button-imaged .icon { display: block; background: transparent url(/public/004-cube-with-layers-yellow.png) no-repeat; background-size: auto 2rem; height: 2rem; width: 2.5rem; margin: 0.5rem 0.5rem 0.5rem 0}
-    .content .button-imaged:hover .icon { background: transparent url(/public/004-cube-with-layers.png) no-repeat; background-size: auto 2rem; height: 2rem; width: 2.5rem; margin: 0.5rem 0.5rem 0.5rem 0 }
+    .content .button-imaged .icon { display: block; height: 2rem; width: 2.5rem; margin: 0.5rem 0.5rem 0.5rem 0; filter: invert(88%) sepia(27%) saturate(3640%) hue-rotate(332deg) brightness(97%) contrast(93%) }
+    .content .button-imaged:hover .icon { filter: invert(1) }
     .deploy { margin: 2rem 1rem 0 1rem }
     .deploy h2 { font-weight: 300; color: var(--content-subtitle-text-color); font-size: 1.2rem }
     .deploy p { font-size: 0.9rem }
@@ -195,6 +196,8 @@
     }
 
     @media (prefers-color-scheme: dark) {
+      .header img { width: 1.5rem; height: 1.5rem; margin-top: 0.75rem; display: block; margin-left: 0.5rem; opacity: 0.25; filter: invert(1) }
+      .header h1 img { opacity: 0.75 }
       :root {
         --gradient-background: linear-gradient(30deg, rgb(7, 7, 54), rgb(48, 6, 34), rgb(63, 45, 14));
         --dashboard-background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5));
@@ -225,7 +228,7 @@
   <div class="container">
     <div class="dashboard">
       <section class="header">
-        <h1>Layered Apps</h1>
+        <h1><img src="/public/layeredapps.svg" /> Layered Apps</h1>
         <div class="menus">
           <div class="menu"><img src="/public/account.svg"></div>
           <div class="menu"><img src="/public/administrator.svg"></div>
@@ -241,7 +244,7 @@
             <p>It's even easier with our hosting:</p>
             <a class="button button-imaged" href="https://layeredapps.com">
               <span class="wrapper">
-                <span class="icon"></span>
+                <img class="icon" src="/public/layeredapps.svg" /> 
                 Layered Apps
               </span>
             </a>
@@ -335,9 +338,9 @@ $ node main.js</code></pre>
         </div>
       </section>
     </div>
-    <p class="attribution">Device icon and cube icon copyright <a href="http://www.freepik.com">Freepik</a> | 
+    <p class="attribution">Icons used under Creative Commons attribution and MIT licenses.  Device icon copyright <a href="http://www.freepik.com">Freepik</a> | 
       Home and account icon copyright <a href="https://www.flaticon.com/authors/google">Google</a> | 
-      Administrator icon copyright <a href="https://www.flaticon.com/authors/smashicons">Smashicons</a></p>
+      Administrator icon copyright <a href="https://www.flaticon.com/authors/smashicons">Smashicons</a> | Cube icon copyright <a href="https://www.svgrepo.com/svg/82645/cube-with-layers">SVG Repo</a></p>
     <p class="attribution">&copy; 2022 Ben Lowry.  Dashboard, modules and documentation are licensed with the <a href="https://mit-license.org/">MIT license</a></p>
   </div>
 </body>
