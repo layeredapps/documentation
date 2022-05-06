@@ -60,7 +60,7 @@ module.exports = async (rootPath, moduleInfo, documentationPath, sitemap, exampl
     } else if (key.indexOf('/administrator') > -1) {
       administrator.push(sitemap.urls[key])
     }
-    if (sitemap.urls[key].authDescription) {
+    if (sitemap.urls[key].auth === 'GUEST') {
       guest.push(sitemap.urls[key])
     }
   }
